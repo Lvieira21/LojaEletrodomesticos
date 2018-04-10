@@ -37,8 +37,8 @@
 	<!--  Especifica o tema que o Primefaces deve utilizar -->
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>afternoon</param-value>
-	</context-param> -
+		<param-value>bootstrap</param-value>
+	</context-param> 
 	
 	<!-- Página principal da aplicação -->
 	<welcome-file-list>

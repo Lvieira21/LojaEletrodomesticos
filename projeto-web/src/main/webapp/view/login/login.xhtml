@@ -2,29 +2,77 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
 <h:head>
 	<meta charset="UTF-8" />
-	<title>Projeto Web - Login</title>
-	<link type="text/css" rel="stylesheet"	href="#{facesContext.externalContext.requestContextPath}/resources/css/estilo.css" />
+	<title>Loja Eletros do México - Login</title>
+	<link type="text/css" rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/estilo.css" />
 </h:head>
 
 <h:body>
-	<h:form id="frmLogin" >
-		<p:messages autoUpdate="true" showDetail="true"/>
-		<p:panel header="Autenticação de Usuário" style="width: 30%;">
-			<h:panelGrid columns="2" style="width: 100%;">
-			<p:outputLabel value="Login:" for="login" />
-			<p:inputText id="login" value="#{loginBean.usuario.login}" style="width: 100%;"/>
-			
-			<p:outputLabel value="Senha:" for="senha" />
-			<p:password id="senha" value="#{loginBean.usuario.senha}" style="width: 100%;"/>
-			
-			<p:spacer />
-			<p:commandButton value="Confirma" action="#{loginBean.loga}" process="@form" update="@form"/>
-			</h:panelGrid>
-		</p:panel>
+
+	<h:form id="frmLogin">
+		<p:messages autoUpdate="true" showDetail="true" />
+		<br />
+		<br />
+		<b:row>
+		<b:column></b:column>
+			<b:container layout="fluid">
+				<b:panelGrid columns="3" colSpans="3,6,3" col-md="12" >
+					<h:outputText></h:outputText>
+					<b:panel title="Por favor, faça o login" look="primary"
+						collapsible="false">
+						<b:row>
+							<b:column col-md="2" col-xs="4">
+								<h:outputText value="Usuário" for="login" />
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column>
+								<b:inputText placeholder="Usuário" id="login"
+									value="#{loginBean.usuario.login}">
+									<f:facet name="prepend">
+										<b:icon name="user" />
+									</f:facet>
+								</b:inputText>
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column col-md="2" col-xs="4">
+								<h:outputText value="Senha" for="senha" />
+							</b:column>
+						</b:row>
+						<b:row tooltipPosition="right"
+							tooltip="Essa senha é Case Sensitive">
+							<b:column>
+								<b:inputSecret placeholder="Senha" id="senha"
+									value="#{loginBean.usuario.senha}" autocomplete="false">
+									<f:facet name="prepend">
+										<b:iconAwesome name="key" />
+									</f:facet>
+								</b:inputSecret>
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column col-xs="6" col-md="4">
+								<b:commandButton value="Confirma" action="#{loginBean.loga}"
+									process="@form" update="@form" icon="glyphicon glyphicon-log-in" look="primary" />
+							</b:column>
+							<b:column col-xs="6" col-md="4" offset="4">
+								<b:commandButton value="Esqueci a senha"
+									onclick="ajax:loginBean.esqueciSenha()" update="@form"
+									look="danger" style="width:100%" />
+							</b:column>
+						</b:row>
+					</b:panel>
+					<h:outputText></h:outputText>
+				</b:panelGrid>
+			</b:container>
+		</b:row>
 	</h:form>
+
 </h:body>
 
 </html>

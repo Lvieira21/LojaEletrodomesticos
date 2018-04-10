@@ -2,21 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
 <h:head>
 	<meta charset="UTF-8" />
-	<title>Projeto Web - Menu</title>
-	<link type="text/css" rel="stylesheet"	href="#{facesContext.externalContext.requestContextPath}/resources/css/estilo.css" />
+	<title>Eletros do México - Menu</title>
+	<link type="text/css" rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/estilo.css" />
 </h:head>
 
-<h:body>
-	<h:form id="frmMenu" >
-		<h1>Usuário: #{loginBean.usuario.login}</h1>
-		<p:panel header="Projeto Web - Menu" style="width: 400px;">
-			<p:commandButton value="Desloga" action="#{loginBean.desloga}" process="@this"/>
-		</p:panel>
+<h:body style="padding-top: 50px; padding-bottom: 20px;">
+	<h:form id="frmMenu">
+		<b:navBar brand="Eletros do México" brandHref="#" inverse="true"
+			fixed="top">
+			<b:navbarLinks>
+				<b:navLink value="Home" href="menu.xhtml"></b:navLink>
+				<b:navLink value="Link" href="#"></b:navLink>
+			</b:navbarLinks>
+			<b:navbarLinks pull="right">
+				<b:navCommandLink display="inline" look="warning" value="Desloga" action="#{loginBean.desloga}"
+					process="@this" />
+			</b:navbarLinks>
+		</b:navBar>
+		<h1>Bem-vindo, #{loginBean.usuario.login}</h1>
 	</h:form>
-
 </h:body>
 
 </html>

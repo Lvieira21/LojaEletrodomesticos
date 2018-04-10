@@ -60,6 +60,11 @@ public class LoginBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", mensagem));
 		return null;
 	}
+	
+	public void esqueciSenha() {
+		String mensagem = "Crie o usuário no Banco de dados";
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", mensagem));
+	}
 
 	public String desloga() {
 		session.removeAttribute(USUARIO_LOGADO);
