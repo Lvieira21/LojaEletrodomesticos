@@ -18,16 +18,16 @@ public class DAO<T> implements Serializable {
 		this.em = em;
 	}
 
-	public void adiciona(T usuario) {
-		em.persist(usuario);
+	public void adiciona(T objeto) {
+		em.persist(objeto);
 	}
 
-	public void remove(T usuario) {
-		em.remove(em.merge(usuario));
+	public void remove(T objeto) {
+		em.remove(em.merge(objeto));
 	}
 
-	public void atualiza(T usuario) {
-		em.merge(usuario);
+	public void atualiza(T objeto) {
+		em.merge(objeto);
 	}
 
 	public List<T> listaTodos() {

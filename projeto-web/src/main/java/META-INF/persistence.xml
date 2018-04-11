@@ -9,6 +9,11 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		
 		<class>br.com.fsma.projeto_web.modelo.negocio.Usuario</class>
+		<class>br.com.fsma.projeto_web.modelo.negocio.Troca</class>
+		<class>br.com.fsma.projeto_web.modelo.negocio.Venda</class>
+		<class>br.com.fsma.projeto_web.modelo.negocio.Produto</class>
+		<class>br.com.fsma.projeto_web.modelo.negocio.ProdutoVenda</class>
+		<class>br.com.fsma.projeto_web.modelo.negocio.Cliente</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

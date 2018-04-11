@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Elétros do México - Menu Cliente</title>
+	<link type="text/css" rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/estilo.css" />
+</h:head>
+
+<h:body style="padding-top: 50px; padding-bottom: 20px;">
+	<h:form id="frmMenu">
+		<b:navBar brand="Eletros do México" brandHref="#" inverse="true"
+			fixed="top">
+			<b:navbarLinks>
+				<b:navLink value="Home"
+					href="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Clientes"
+					href="/projeto-web/view/cliente/cliente.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Produtos" href="#"></b:navLink>
+				<b:navLink value="Trocas" href="#"></b:navLink>
+			</b:navbarLinks>
+			<b:navbarLinks pull="right">
+				<b:navCommandLink icon="glyphicon glyphicon-log-out" value="Sair"
+					action="#{loginBean.desloga}" process="@this"></b:navCommandLink>
+			</b:navbarLinks>
+		</b:navBar>
+		<h2>Selecione a opção desejada</h2>
+		<h:form>
+		<p:messages autoUpdate="true" showDetail="true" />
+			<b:tabView tabPosition="left"
+				contentStyle="border: 1px solid #ddd;padding:10px">
+				<b:tab title="Cadastrar cliente">
+					<h:form id="formCadastroCliente">
+						<b:container>
+							<b:row>
+								<b:column col-sm="1">
+									<h:outputText value="Nome" for="nome" />
+								</b:column>
+								<b:column col-md="4" col-sm="2">
+									<b:inputText placeholder="Nome completo" id="nome" value="#{clienteBean.cliente.nome}"></b:inputText>
+								</b:column>
+								<b:column col-sm="1">
+									<h:outputText value="CPF" for="cpf" />
+								</b:column>
+								<b:column col-md="4" col-sm="2">
+									<b:inputText placeholder="CPF" id="cpf" value="#{clienteBean.cliente.cpf}"></b:inputText>
+								</b:column>
+							</b:row>
+							<b:row>
+								<b:column col-sm="1">
+									<h:outputText value="Endereço" for="endereco" />
+								</b:column>
+								<b:column col-md="4" col-sm="2">
+									<b:inputText placeholder="Endereço" id="endereco" value="#{clienteBean.cliente.endereco}"></b:inputText>
+								</b:column>
+								<b:column col-sm="1">
+									<h:outputText value="Telefone" for="telefone" />
+								</b:column>
+								<b:column col-md="4" col-sm="2">
+									<b:inputText placeholder="Telefone" id="telefone" value="#{clienteBean.cliente.telefone}"></b:inputText>
+								</b:column>
+							</b:row>
+							<b:commandButton action="#{clienteBean.cadastra}" icon="user" value="Cadastrar" look="primary" />
+						</b:container>
+					</h:form>
+				</b:tab>
+				<b:tab title="Consultar clientes">
+      				Lista de Clientes
+      				<h:form>
+
+					</h:form>
+    			</b:tab>
+			</b:tabView>
+		</h:form>
+
+	</h:form>
+</h:body>
+
+</html>

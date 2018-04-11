@@ -6,25 +6,49 @@
 	xmlns:b="http://bootsfaces.net/ui">
 <h:head>
 	<meta charset="UTF-8" />
-	<title>Eletros do México - Menu</title>
+	<title>Elétros do México - Menu</title>
 	<link type="text/css" rel="stylesheet"
 		href="#{facesContext.externalContext.requestContextPath}/resources/css/estilo.css" />
 </h:head>
 
 <h:body style="padding-top: 50px; padding-bottom: 20px;">
 	<h:form id="frmMenu">
-		<b:navBar brand="Eletros do México" brandHref="#" inverse="true"
-			fixed="top">
+		<b:navBar brand-align="left" brand="Eletros do México" brandHref="#"
+			inverse="true" fixed="top">
 			<b:navbarLinks>
-				<b:navLink value="Home" href="menu.xhtml"></b:navLink>
-				<b:navLink value="Link" href="#"></b:navLink>
+				<b:navLink value="Home"
+					href="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Clientes"
+					href="/projeto-web/view/cliente/cliente.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Produtos" href="#"></b:navLink>
+				<b:navLink value="Trocas" href="#"></b:navLink>
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
-				<b:navCommandLink display="inline" look="warning" value="Desloga" action="#{loginBean.desloga}"
-					process="@this" />
+				<b:navCommandLink icon="glyphicon glyphicon-log-out" value="Sair"
+					action="#{loginBean.desloga}" process="@this"></b:navCommandLink>
 			</b:navbarLinks>
+
 		</b:navBar>
-		<h1>Bem-vindo, #{loginBean.usuario.login}</h1>
+		<b:jumbotron>
+			<b:container>
+				<h1>Ola, #{loginBean.usuario.login}</h1>
+				<p>Bem-vindo ao sistema de gerenciamento de clientes, vendas e
+					trocas da loja Elétros do México.</p>
+				<p>Aqui voce poderá adicionar/remover produtos do inventário,
+					adicionar clientes, fazer vendas, e também realizar troca de
+					produtos, além de imprimir relatórios diversos.</p>
+				<p>Use o menu acima para navegar.</p>
+			</b:container>
+		</b:jumbotron>
+
+		<b:container>
+			<hr />
+			<footer>
+				<p>© Elétros do México 2018</p>
+			</footer>
+
+		</b:container>
+
 	</h:form>
 </h:body>
 

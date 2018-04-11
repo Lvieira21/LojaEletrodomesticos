@@ -62,7 +62,7 @@ public class LoginBean implements Serializable {
 	}
 	
 	public void esqueciSenha() {
-		String mensagem = "Crie o usuário no Banco de dados";
+		String mensagem = "Crie/altere o usuário no Banco de dados";
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", mensagem));
 	}
 
