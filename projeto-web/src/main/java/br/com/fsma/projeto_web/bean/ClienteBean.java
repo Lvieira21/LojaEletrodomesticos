@@ -1,6 +1,7 @@
 package br.com.fsma.projeto_web.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -10,7 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.fsma.projeto_web.modelo.dao.ClienteDAO;
-import br.com.fsma.projeto_web.modelo.dao.DAO;
 import br.com.fsma.projeto_web.modelo.negocio.Cliente;
 import br.com.fsma.projeto_web.tx.Transacional;
 
@@ -21,8 +21,6 @@ public class ClienteBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Cliente cliente;
-
-	private DAO<Cliente> dao;
 
 	@Inject
 	private ClienteDAO clienteDao;
@@ -52,5 +50,10 @@ public class ClienteBean implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", mensagem));
 			this.cliente = new Cliente();
 		}
+	}
+	
+	@Transacional
+	public List<Cliente> getClientes () {
+		return clienteDao.listaTodos();
 	}
 }

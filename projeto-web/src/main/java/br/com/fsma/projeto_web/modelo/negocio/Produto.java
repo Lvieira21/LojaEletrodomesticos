@@ -26,7 +26,7 @@ public class Produto implements Serializable {
 	private String modelo;
 	@Column(nullable=false)
 	private String marca;
-	@Column(nullable=false)
+	@Column
 	private Integer qtd;
 	@Column(nullable=false)
 	private BigDecimal valorUnitario;

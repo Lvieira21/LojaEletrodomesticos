@@ -59,7 +59,7 @@ public class ClienteDAO implements Serializable {
 
 	}
 
-	public List<Cliente> listaTodosPaginada(int firstResult, int maxResults) {
-		return dao.listaTodosPaginada(firstResult, maxResults);
+	public List<Cliente> listaTodos() {
+		return dao.listaTodos();
 	}
 }

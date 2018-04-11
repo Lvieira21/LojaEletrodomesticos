@@ -6,7 +6,7 @@
 	xmlns:b="http://bootsfaces.net/ui">
 <h:head>
 	<meta charset="UTF-8" />
-	<title>Elétros do México - Menu Cliente</title>
+	<title>Elétros do México - Menu Produto</title>
 	<link type="text/css" rel="stylesheet"
 		href="#{facesContext.externalContext.requestContextPath}/resources/css/estilo.css" />
 </h:head>
@@ -33,55 +33,63 @@
 			<p:messages autoUpdate="true" showDetail="true" />
 			<b:tabView tabPosition="left"
 				contentStyle="border: 1px solid #ddd;padding:10px">
-				<b:tab title="Cadastrar cliente">
-					<h:form id="formCadastroCliente">
+				<b:tab title="Cadastrar produto">
+					<h:form id="formCadastroProduto">
 						<b:container>
 							<b:row>
 								<b:column col-sm="1">
 									<h:outputText value="Nome" for="nome" />
 								</b:column>
 								<b:column col-md="4" col-sm="2">
-									<b:inputText placeholder="Nome completo" id="nome"
-										value="#{clienteBean.cliente.nome}"></b:inputText>
+									<b:inputText placeholder="Nome" id="nome"
+										value="#{produtoBean.produto.nome}"></b:inputText>
 								</b:column>
 								<b:column col-sm="1">
-									<h:outputText value="CPF" for="cpf" />
+									<h:outputText value="Modelo" for="modelo" />
 								</b:column>
 								<b:column col-md="4" col-sm="2">
-									<b:inputText placeholder="CPF" id="cpf"
-										value="#{clienteBean.cliente.cpf}"></b:inputText>
+									<b:inputText placeholder="Modelo" id="modelo"
+										value="#{produtoBean.produto.modelo}"></b:inputText>
 								</b:column>
 							</b:row>
 							<b:row>
 								<b:column col-sm="1">
-									<h:outputText value="Endereço" for="endereco" />
+									<h:outputText value="Marca" for="marca" />
 								</b:column>
 								<b:column col-md="4" col-sm="2">
-									<b:inputText placeholder="Endereço" id="endereco"
-										value="#{clienteBean.cliente.endereco}"></b:inputText>
+									<b:inputText placeholder="Marca" id="marca"
+										value="#{produtoBean.produto.marca}"></b:inputText>
 								</b:column>
 								<b:column col-sm="1">
-									<h:outputText value="Telefone" for="telefone" />
+									<h:outputText value="Quantidade" for="qtd" />
 								</b:column>
-								<b:column col-md="4" col-sm="2">
-									<b:inputText placeholder="Telefone" id="telefone"
-										value="#{clienteBean.cliente.telefone}"></b:inputText>
+								<b:column col-sm="1">
+									<b:inputText placeholder="Qtd" id="qtd"
+										value="#{produtoBean.produto.qtd}"></b:inputText>
+								</b:column>
+								<b:column col-sm="1">
+									<h:outputText value="Valor" for="valorUnitario" />
+								</b:column>
+								<b:column col-sm="2">
+									<b:inputText placeholder="Valor" id="valorUnitario"
+										value="#{produtoBean.produto.valorUnitario}"></b:inputText>
 								</b:column>
 							</b:row>
-							<b:commandButton action="#{clienteBean.cadastra}" icon="user"
-								value="Cadastrar" look="primary" />
+							<b:commandButton action="#{produtoBean.cadastra}" icon="glyphicon glyphicon-save"
+								value="Cadastrar" look="primary" ajax="false" />
 						</b:container>
 					</h:form>
 				</b:tab>
-				<b:tab title="Consultar clientes">
-      				Lista de Clientes
+				<b:tab title="Consultar produtos">
+      				Lista de produtos
       				<h:form>
-						<b:dataTable value="#{clienteBean.clientes}" var="cliente">
-							<b:dataTableColumn value="#{cliente.nome}"
+						<b:dataTable value="#{produtoBean.produtos}" var="produto">
+							<b:dataTableColumn value="#{produto.nome}"
 								order="asc" />
-							<b:dataTableColumn value="#{cliente.cpf}" />
-							<b:dataTableColumn value="#{cliente.telefone}" />
-							<b:dataTableColumn value="#{cliente.endereco}" />
+							<b:dataTableColumn value="#{produto.modelo}" />
+							<b:dataTableColumn value="#{produto.marca}" />
+							<b:dataTableColumn value="#{produto.qtd}" />
+							<b:dataTableColumn value="#{produto.valorUnitario}" />
 						</b:dataTable>
 					</h:form>
 				</b:tab>
