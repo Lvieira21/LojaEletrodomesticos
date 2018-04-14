@@ -20,7 +20,8 @@
 					href="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Clientes"
 					href="/projeto-web/view/cliente/cliente.xhtml?faces-redirect=true"></b:navLink>
-				<b:navLink value="Produtos" href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Produtos"
+					href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Trocas" href="#"></b:navLink>
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
@@ -28,75 +29,93 @@
 					action="#{loginBean.desloga}" process="@this"></b:navCommandLink>
 			</b:navbarLinks>
 		</b:navBar>
-		<h2>Selecione a opção desejada</h2>
-		<h:form>
-			<p:messages autoUpdate="true" showDetail="true" />
-			<b:tabView tabPosition="left"
-				contentStyle="border: 1px solid #ddd;padding:10px">
-				<b:tab title="Cadastrar produto">
-					<h:form id="formCadastroProduto">
-						<b:container>
-							<b:row>
-								<b:column col-sm="1">
-									<h:outputText value="Nome" for="nome" />
-								</b:column>
-								<b:column col-md="4" col-sm="2">
-									<b:inputText placeholder="Nome" id="nome"
-										value="#{produtoBean.produto.nome}"></b:inputText>
-								</b:column>
-								<b:column col-sm="1">
-									<h:outputText value="Modelo" for="modelo" />
-								</b:column>
-								<b:column col-md="4" col-sm="2">
-									<b:inputText placeholder="Modelo" id="modelo"
-										value="#{produtoBean.produto.modelo}"></b:inputText>
-								</b:column>
-							</b:row>
-							<b:row>
-								<b:column col-sm="1">
-									<h:outputText value="Marca" for="marca" />
-								</b:column>
-								<b:column col-md="4" col-sm="2">
-									<b:inputText placeholder="Marca" id="marca"
-										value="#{produtoBean.produto.marca}"></b:inputText>
-								</b:column>
-								<b:column col-sm="1">
-									<h:outputText value="Quantidade" for="qtd" />
-								</b:column>
-								<b:column col-sm="1">
-									<b:inputText placeholder="Qtd" id="qtd"
-										value="#{produtoBean.produto.qtd}"></b:inputText>
-								</b:column>
-								<b:column col-sm="1">
-									<h:outputText value="Valor" for="valorUnitario" />
-								</b:column>
-								<b:column col-sm="2">
-									<b:inputText placeholder="Valor" id="valorUnitario"
-										value="#{produtoBean.produto.valorUnitario}"></b:inputText>
-								</b:column>
-							</b:row>
-							<b:commandButton action="#{produtoBean.cadastra}" icon="glyphicon glyphicon-save"
-								value="Cadastrar" look="primary" ajax="false" />
-						</b:container>
-					</h:form>
-				</b:tab>
-				<b:tab title="Consultar produtos">
-      				Lista de produtos
-      				<h:form>
-						<b:dataTable value="#{produtoBean.produtos}" var="produto">
-							<b:dataTableColumn value="#{produto.nome}"
-								order="asc" />
-							<b:dataTableColumn value="#{produto.modelo}" />
-							<b:dataTableColumn value="#{produto.marca}" />
-							<b:dataTableColumn value="#{produto.qtd}" />
-							<b:dataTableColumn value="#{produto.valorUnitario}" />
-						</b:dataTable>
-					</h:form>
-				</b:tab>
-			</b:tabView>
-		</h:form>
-
 	</h:form>
+	<h2>Selecione a opção desejada</h2>
+	<p:messages autoUpdate="true" showDetail="true" />
+	<b:tabView tabPosition="left"
+		contentStyle="border: 1px solid #ddd;padding:10px">
+		<b:tab title="Cadastrar produto">
+			<h:form id="formCadastroProduto">
+				<b:container>
+					<b:row>
+						<b:column col-sm="1">
+							<h:outputText value="Nome" for="nome" />
+						</b:column>
+						<b:column col-md="4" col-sm="2">
+							<b:inputText placeholder="Nome" id="nome"
+								value="#{produtoBean.produto.nome}"></b:inputText>
+						</b:column>
+						<b:column col-sm="1">
+							<h:outputText value="Modelo" for="modelo" />
+						</b:column>
+						<b:column col-md="4" col-sm="2">
+							<b:inputText placeholder="Modelo" id="modelo"
+								value="#{produtoBean.produto.modelo}"></b:inputText>
+						</b:column>
+					</b:row>
+					<b:row>
+						<b:column col-sm="1">
+							<h:outputText value="Marca" for="marca" />
+						</b:column>
+						<b:column col-md="4" col-sm="2">
+							<b:inputText placeholder="Marca" id="marca"
+								value="#{produtoBean.produto.marca}"></b:inputText>
+						</b:column>
+						<b:column col-sm="1">
+							<h:outputText value="Quantidade" for="qtd" />
+						</b:column>
+						<b:column col-sm="1">
+							<b:inputText placeholder="Qtd" id="qtd"
+								value="#{produtoBean.produto.qtd}"></b:inputText>
+						</b:column>
+						<b:column col-sm="1">
+							<h:outputText value="Valor" for="valorUnitario" />
+						</b:column>
+						<b:column col-sm="2">
+							<b:inputText placeholder="Valor" id="valorUnitario"
+								value="#{produtoBean.produto.valorUnitario}">
+							</b:inputText>
+						</b:column>
+					</b:row>
+					<b:commandButton action="#{produtoBean.cadastra}"
+						icon="glyphicon glyphicon-save" value="Cadastrar" look="primary"
+						process="@form" />
+				</b:container>
+			</h:form>
+		</b:tab>
+		<b:tab title="Consultar produtos">
+      				Lista de produtos
+      				<h:form id="listaProdFrm">
+				<b:dataTable id="tb_produtos" var="produto"
+					value="#{produtoBean.produtos}" excel="true" pdf="true"
+					columnVisibility="true">
+					<b:dataTableColumn value="#{produto.nome}" order="asc" />
+					<b:dataTableColumn value="#{produto.modelo}" />
+					<b:dataTableColumn value="#{produto.marca}" />
+					<b:dataTableColumn value="#{produto.qtd}" />
+					<b:dataTableColumn value="#{produto.valorUnitario}" />
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Opções"></h:outputText>
+						</f:facet>
+						<p:commandButton icon="ui-icon-plus" actionListener="#{produtoBean.aumenta(produto)}" update="@form"/>
+						<p:commandButton icon="ui-icon-minus" actionListener="#{produtoBean.diminui(produto)}" update="@form"/>
+						<p:commandButton  icon="ui-icon-close"
+							actionListener="#{produtoBean.remove(produto)}" update="@form">
+							<p:confirm header="Confirmação"
+								message="Deseja apagar o registro?" icon="ui-icon-alert" />
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Sim" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</h:column>
+				</b:dataTable>
+			</h:form>
+		</b:tab>
+	</b:tabView>
 </h:body>
 
 </html>

@@ -41,7 +41,7 @@ public class ClienteBean implements Serializable {
 
 		if (clienteDao.existe(cliente) == false) {
 			clienteDao.adiciona(cliente);
-			String mensagemSucesso = "Usuário " + cliente.getNome() + " cadastrado com sucesso!";
+			String mensagemSucesso = "Cliente " + cliente.getNome() + " cadastrado com sucesso!";
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "", mensagemSucesso));
 		} else {
@@ -52,7 +52,6 @@ public class ClienteBean implements Serializable {
 		}
 	}
 	
-	@Transacional
 	public List<Cliente> getClientes () {
 		return clienteDao.listaTodos();
 	}

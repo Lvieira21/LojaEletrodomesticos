@@ -20,37 +20,39 @@
 					href="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Clientes"
 					href="/projeto-web/view/cliente/cliente.xhtml?faces-redirect=true"></b:navLink>
-				<b:navLink value="Produtos" href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Produtos"
+					href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Trocas" href="#"></b:navLink>
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
 				<b:navCommandLink icon="glyphicon glyphicon-log-out" value="Sair"
 					action="#{loginBean.desloga}" process="@this"></b:navCommandLink>
 			</b:navbarLinks>
-
 		</b:navBar>
-		<b:jumbotron>
-			<b:container>
-				<h1>Olá, #{loginBean.usuario.login}</h1>
-				<p>Bem-vindo ao sistema de gerenciamento de clientes, vendas e
-					trocas da loja Elétros do México.</p>
-				<p>Aqui voce poderá adicionar/remover produtos do inventário,
-					adicionar clientes, fazer vendas, e também realizar troca de
-					produtos, além de imprimir relatórios diversos.</p>
-				<p>Use o menu acima para administrar inventário ou realizar trocas.</p>
-				<p><a class="btn btn-primary btn-lg">Vender</a></p>
-			</b:container>
-		</b:jumbotron>
-
-		<b:container>
-			<hr />
-			<footer>
-				<p>© Elétros do México 2018</p>
-			</footer>
-
-		</b:container>
-
 	</h:form>
+	<b:jumbotron>
+		<b:container>
+			<h1>Olá, #{loginBean.usuario.login}</h1>
+			<p>Bem-vindo ao sistema de gerenciamento de clientes, vendas e
+				trocas da loja Elétros do México.</p>
+			<p>Aqui voce poderá adicionar/remover produtos do inventário,
+				adicionar clientes, fazer vendas, e também realizar troca de
+				produtos, além de imprimir relatórios diversos.</p>
+			<p>Use o menu acima para administrar inventário ou realizar
+				trocas.</p>
+			<p>
+				<a class="btn btn-primary btn-lg">Vender</a>
+			</p>
+		</b:container>
+	</b:jumbotron>
+
+	<b:container>
+		<hr />
+		<footer>
+			<p>© Elétros do México 2018</p>
+		</footer>
+
+	</b:container>
 </h:body>
 
 </html>
