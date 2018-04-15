@@ -4,14 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.fsma.projeto_web.modelo.dao.ClienteDAO;
 import br.com.fsma.projeto_web.modelo.negocio.Cliente;
+import br.com.fsma.projeto_web.msg.Mensagem;
 import br.com.fsma.projeto_web.tx.Transacional;
 
 @Named
@@ -21,6 +20,7 @@ public class ClienteBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Cliente cliente;
+	private Mensagem mensagem = new Mensagem();
 
 	@Inject
 	private ClienteDAO clienteDao;
@@ -37,22 +37,36 @@ public class ClienteBean implements Serializable {
 
 	@Transacional
 	public void cadastra() {
-		System.out.println("Gravando cliente: " + this.cliente.getNome());
-
 		if (clienteDao.existe(cliente) == false) {
-			clienteDao.adiciona(cliente);
-			String mensagemSucesso = "Cliente " + cliente.getNome() + " cadastrado com sucesso!";
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "", mensagemSucesso));
+			if (clienteDao.verificaCpf(cliente)) {
+				clienteDao.adiciona(cliente);
+				mensagem.addMessageSuccess("Mensagem do Sistema",
+						"Cliente " + cliente.getNome() + " cadastrado com sucesso!");
+				this.cliente = new Cliente();
+			} else {
+				mensagem.addMessageError("Erro!", "CPF inválido");
+			}
 		} else {
-			String mensagem = "CPF já cadastrado!";
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", mensagem));
+			mensagem.addMessageError("Erro!", "CPF já cadastrado");
 			this.cliente = new Cliente();
 		}
 	}
-	
-	public List<Cliente> getClientes () {
+
+	public List<Cliente> getClientes() {
 		return clienteDao.listaTodos();
+	}
+
+	@Transacional
+	public void remove(Cliente cliente) {
+		if (cliente.getCompras().isEmpty()) {
+			mensagem.addMessageSuccess("Mensagem do Sistema",
+					"Cliente " + cliente.getNome() + " apagado do sistema com sucesso!");
+			clienteDao.remove(cliente);
+			return;
+		} else {
+			mensagem.addMessageError("Erro!", "Cliente tem compras realizadas no sistema");
+			return;
+		}
+
 	}
 }

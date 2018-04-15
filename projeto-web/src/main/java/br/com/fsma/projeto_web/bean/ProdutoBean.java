@@ -4,14 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.fsma.projeto_web.modelo.dao.ProdutoDAO;
 import br.com.fsma.projeto_web.modelo.negocio.Produto;
+import br.com.fsma.projeto_web.msg.Mensagem;
 import br.com.fsma.projeto_web.tx.Transacional;
 
 @Named
@@ -21,6 +20,7 @@ public class ProdutoBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Produto produto;
+	private Mensagem mensagem = new Mensagem();
 
 	@Inject
 	private ProdutoDAO produtoDao;
@@ -39,9 +39,9 @@ public class ProdutoBean implements Serializable {
 	public void cadastra() {
 		if (produtoDao.existe(produto) == false) {
 			produtoDao.adiciona(produto);
-			addMessageSuccess("Mensagem do sistema", "Cadastrando produto: " + this.produto.getNome());
+			mensagem.addMessageSuccess("Mensagem do sistema", "Cadastrando produto: " + this.produto.getNome());
 		} else {
-			addMessageError("Erro!", "Produto " + this.produto.getNome() + " já existe.");
+			mensagem.addMessageError("Erro!", "Produto " + this.produto.getNome() + " já existe.");
 		}
 		this.produto = new Produto();
 
@@ -57,7 +57,7 @@ public class ProdutoBean implements Serializable {
 		quantidade += 1;
 		produto.setQtd(quantidade);
 		produtoDao.atualiza(produto);
-		addMessageSuccess("Mensagem do sistema", "Adição feita com sucesso.");
+		mensagem.addMessageSuccess("Mensagem do sistema", "Adição feita com sucesso.");
 	}
 
 	@Transacional
@@ -67,26 +67,20 @@ public class ProdutoBean implements Serializable {
 			quantidade -= 1;
 			produto.setQtd(quantidade);
 			produtoDao.atualiza(produto);
-			addMessageSuccess("Mensagem do sistema", "Subtração feita com sucesso.");
+			mensagem.addMessageSuccess("Mensagem do sistema", "Subtração feita com sucesso.");
 		} else {
-			addMessageError("Erro!", "Quantidade mínima.");
+			mensagem.addMessageError("Erro!", "Quantidade mínima.");
 		}
 	}
 
 	@Transacional
 	public void remove(Produto produto) {
-		addMessageSuccess("Mensagem do sistema", "Produto - " + produto.getNome() + " removido(a).");
-		System.out.println("Produto " + produto.getNome() + " " + produto.getQtd() + " removido!");
-		produtoDao.remove(produto);
+		if (produto.getQtd() == 0) {
+			produtoDao.remove(produto);
+			mensagem.addMessageSuccess("Mensagem do sistema", "Produto - " + produto.getNome() + " removido(a).");
+		} else {
+			mensagem.addMessageError("Erro!", "É necessário que não haja nenhuma quantidade do produto restante");
+		}
 	}
 
-	public void addMessageSuccess(String summary, String detail) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-		FacesContext.getCurrentInstance().addMessage(null, message);
-	}
-
-	public void addMessageError(String summary, String detail) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
-		FacesContext.getCurrentInstance().addMessage(null, message);
-	}
 }

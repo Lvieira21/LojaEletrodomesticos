@@ -39,14 +39,14 @@
 				<b:container>
 					<b:row>
 						<b:column col-sm="1">
-							<h:outputText value="Nome" for="nome" />
+							<h:outputText value="Nome*" for="nome" />
 						</b:column>
 						<b:column col-md="4" col-sm="2">
 							<b:inputText placeholder="Nome" id="nome"
 								value="#{produtoBean.produto.nome}"></b:inputText>
 						</b:column>
 						<b:column col-sm="1">
-							<h:outputText value="Modelo" for="modelo" />
+							<h:outputText value="Modelo*" for="modelo" />
 						</b:column>
 						<b:column col-md="4" col-sm="2">
 							<b:inputText placeholder="Modelo" id="modelo"
@@ -55,7 +55,7 @@
 					</b:row>
 					<b:row>
 						<b:column col-sm="1">
-							<h:outputText value="Marca" for="marca" />
+							<h:outputText value="Marca*" for="marca" />
 						</b:column>
 						<b:column col-md="4" col-sm="2">
 							<b:inputText placeholder="Marca" id="marca"
@@ -69,7 +69,7 @@
 								value="#{produtoBean.produto.qtd}"></b:inputText>
 						</b:column>
 						<b:column col-sm="1">
-							<h:outputText value="Valor" for="valorUnitario" />
+							<h:outputText value="Valor*" for="valorUnitario" />
 						</b:column>
 						<b:column col-sm="2">
 							<b:inputText placeholder="Valor" id="valorUnitario"
@@ -98,9 +98,11 @@
 						<f:facet name="header">
 							<h:outputText value="Opções"></h:outputText>
 						</f:facet>
-						<p:commandButton icon="ui-icon-plus" actionListener="#{produtoBean.aumenta(produto)}" update="@form"/>
-						<p:commandButton icon="ui-icon-minus" actionListener="#{produtoBean.diminui(produto)}" update="@form"/>
-						<p:commandButton  icon="ui-icon-close"
+						<p:commandButton icon="ui-icon-plus"
+							actionListener="#{produtoBean.aumenta(produto)}" update="@form" />
+						<p:commandButton icon="ui-icon-minus"
+							actionListener="#{produtoBean.diminui(produto)}" update="@form" />
+						<p:commandButton icon="ui-icon-close"
 							actionListener="#{produtoBean.remove(produto)}" update="@form">
 							<p:confirm header="Confirmação"
 								message="Deseja apagar o registro?" icon="ui-icon-alert" />
@@ -116,6 +118,13 @@
 			</h:form>
 		</b:tab>
 	</b:tabView>
+	<b:container>
+		<hr />
+		<footer>
+			<p>Obs: Campos com * são necessários.</p>
+		</footer>
+
+	</b:container>
 </h:body>
 
 </html>

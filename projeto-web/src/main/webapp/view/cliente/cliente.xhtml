@@ -31,62 +31,83 @@
 		</b:navBar>
 	</h:form>
 	<h2>Selecione a opção desejada</h2>
-	<h:form>
-		<p:messages autoUpdate="true" showDetail="true" />
-		<b:tabView tabPosition="left"
-			contentStyle="border: 1px solid #ddd;padding:10px">
-			<b:tab title="Cadastrar cliente">
-				<h:form id="formCadastroCliente">
-					<b:container>
-						<b:row>
-							<b:column col-sm="1">
-								<h:outputText value="Nome" for="nome" />
-							</b:column>
-							<b:column col-md="4" col-sm="2">
-								<b:inputText placeholder="Nome completo" id="nome"
-									value="#{clienteBean.cliente.nome}"></b:inputText>
-							</b:column>
-							<b:column col-sm="1">
-								<h:outputText value="CPF" for="cpf" />
-							</b:column>
-							<b:column col-md="4" col-sm="2">
-								<b:inputText placeholder="CPF" id="cpf"
-									value="#{clienteBean.cliente.cpf}"></b:inputText>
-							</b:column>
-						</b:row>
-						<b:row>
-							<b:column col-sm="1">
-								<h:outputText value="Endereço" for="endereco" />
-							</b:column>
-							<b:column col-md="4" col-sm="2">
-								<b:inputText placeholder="Endereço" id="endereco"
-									value="#{clienteBean.cliente.endereco}"></b:inputText>
-							</b:column>
-							<b:column col-sm="1">
-								<h:outputText value="Telefone" for="telefone" />
-							</b:column>
-							<b:column col-md="4" col-sm="2">
-								<b:inputText placeholder="Telefone" id="telefone"
-									value="#{clienteBean.cliente.telefone}"></b:inputText>
-							</b:column>
-						</b:row>
-						<b:commandButton action="#{clienteBean.cadastra}" icon="user"
-							value="Cadastrar" look="primary" />
-					</b:container>
-				</h:form>
-			</b:tab>
-			<b:tab title="Consultar clientes">
+	<p:messages autoUpdate="true" showDetail="true" />
+	<b:tabView tabPosition="left"
+		contentStyle="border: 1px solid #ddd;padding:10px">
+		<b:tab title="Cadastrar cliente">
+			<h:form id="formCadastroCliente">
+				<b:container>
+					<b:row>
+						<b:column col-sm="1">
+							<h:outputText value="Nome*" for="nome" />
+						</b:column>
+						<b:column col-md="4" col-sm="2">
+							<b:inputText placeholder="Nome completo" id="nome"
+								value="#{clienteBean.cliente.nome}"></b:inputText>
+						</b:column>
+						<b:column col-sm="1">
+							<h:outputText value="CPF*" for="cpf" />
+						</b:column>
+						<b:column col-md="4" col-sm="2">
+							<p:inputMask mask="999.999.999-99" placeholder="CPF" id="cpf"
+								value="#{clienteBean.cliente.cpf}"></p:inputMask>
+						</b:column>
+					</b:row>
+					<b:row>
+						<b:column col-sm="1">
+							<h:outputText value="Endereço*" for="endereco" />
+						</b:column>
+						<b:column col-md="4" col-sm="2">
+							<b:inputText placeholder="Endereço" id="endereco"
+								value="#{clienteBean.cliente.endereco}"></b:inputText>
+						</b:column>
+						<b:column col-sm="1">
+							<h:outputText value="Telefone" for="telefone" />
+						</b:column>
+						<b:column col-md="4" col-sm="2">
+								<p:inputMask mask="(99) 9999-9999" placeholder="Telefone" id="telefone"
+								value="#{clienteBean.cliente.telefone}"></p:inputMask>
+						</b:column>
+					</b:row>
+					<b:commandButton action="#{clienteBean.cadastra}" icon="user"
+						value="Cadastrar" look="primary" />
+				</b:container>
+			</h:form>
+		</b:tab>
+		<b:tab title="Consultar clientes">
       				Lista de Clientes
-      				<h:form>
-					<b:dataTable value="#{clienteBean.clientes}" var="cliente">
-						<b:dataTableColumn value="#{cliente.nome}" order="asc" />
-						<b:dataTableColumn value="#{cliente.cpf}" />
-						<b:dataTableColumn value="#{cliente.telefone}" />
-						<b:dataTableColumn value="#{cliente.endereco}" />
-					</b:dataTable>
-				</h:form>
-			</b:tab>
-		</b:tabView>
-	</h:form>
+      		<h:form>
+				<b:dataTable value="#{clienteBean.clientes}" var="cliente">
+					<b:dataTableColumn value="#{cliente.nome}" order="asc" />
+					<b:dataTableColumn value="#{cliente.cpf}" />
+					<b:dataTableColumn value="#{cliente.telefone}" />
+					<b:dataTableColumn value="#{cliente.endereco}" />
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Opções"></h:outputText>
+						</f:facet>
+						<p:commandButton icon="ui-icon-close"
+							actionListener="#{clienteBean.remove(cliente)}" update="@form">
+							<p:confirm header="Confirmação"
+								message="Deseja apagar o registro?" icon="ui-icon-alert" />
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Sim" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</h:column>
+				</b:dataTable>
+			</h:form>
+		</b:tab>
+	</b:tabView>
+		<b:container>
+		<hr />
+		<footer>
+			<p>Obs: Campos com * são necessários.</p>
+		</footer>
+
+	</b:container>
 </h:body>
 </html>
