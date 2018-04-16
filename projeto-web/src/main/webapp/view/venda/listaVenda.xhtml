@@ -13,11 +13,12 @@
 
 <h:body style="padding-top: 50px; padding-bottom: 20px;">
 	<h:form id="frmMenu">
-		<b:navBar brand-align="left" brand="Elétros do México" brandHref="#"
+		<b:navBar brand="Elétros do México"
+			brandHref="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"
 			inverse="true" fixed="top">
 			<b:navbarLinks>
 				<b:navLink value="Home"
-					href="#"></b:navLink>
+					href="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Clientes"
 					href="/projeto-web/view/cliente/cliente.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Produtos"
@@ -30,29 +31,23 @@
 			</b:navbarLinks>
 		</b:navBar>
 	</h:form>
-	<b:jumbotron>
-		<b:container>
-			<h1>Olá, #{loginBean.usuario.login}</h1>
-			<p>Bem-vindo ao sistema de gerenciamento de clientes, vendas e
-				trocas da loja Elétros do México.</p>
-			<p>Aqui voce poderá adicionar/remover produtos do inventário,
-				adicionar clientes, fazer vendas, e também realizar troca de
-				produtos, além de imprimir relatórios diversos.</p>
-			<p>Use o menu acima para administrar inventário ou realizar
-				trocas.</p>
-			<p>
-				<a class="btn btn-primary btn-lg" href="/projeto-web/view/venda/venda.xhtml?faces-redirect=true">Vender</a>
-				<a class="btn btn-primary btn-lg" href="/projeto-web/view/venda/listaVenda.xhtml?faces-redirect=true">Relatório de Vendas</a>
-			</p>
-		</b:container>
-	</b:jumbotron>
+	
+	<h1 style="text-align: center;">Todas as vendas</h1>
+	<b:dataTable var="venda"
+		value="#{vendaBean.vendas}" excel="true" pdf="true"
+		columnVisibility="true">
+		<b:dataTableColumn label="Número da venda" value="#{venda.id}" order="asc" />
+		<b:dataTableColumn value="#{venda.cliente.nome}" />
+		<b:dataTableColumn label="Valor total" value="#{venda.valorTotal}" />
+	</b:dataTable>
+
+	<br />
 
 	<b:container>
 		<hr />
 		<footer>
 			<p>© Elétros do México 2018</p>
 		</footer>
-
 	</b:container>
 </h:body>
 

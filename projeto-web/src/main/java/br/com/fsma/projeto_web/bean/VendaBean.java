@@ -124,6 +124,18 @@ public class VendaBean implements Serializable {
 	}
 	
 
+	@Transacional
+	public void retiraDoEstoque() {
+		for (ProdutoVenda prodVend : venda.getProdutos()) {
+			for (Produto produto : produtoDao.listaTodos()) {
+				if (prodVend.getProduto().equals(produto)) {
+					produto.setQtd(produto.getQtd() - prodVend.getQtdVendida());
+					produtoDao.atualiza(produto);
+				}
+			}
+		}
+	}
+	
 	
 	@Transacional
 	public void vender() {
@@ -132,7 +144,9 @@ public class VendaBean implements Serializable {
 			System.out.println("Registrando " + prodVend.getProduto().getNome());
 			produtoVendaDao.adiciona(prodVend);
 		}
+		retiraDoEstoque();
 		mensagem.addMessageSuccess("Mensagem do sistema", "Venda concluída com sucesso.");
+		removeCliente();
 	}
 
 	public List<Venda> getVendas() {
