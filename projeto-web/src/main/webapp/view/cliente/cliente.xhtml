@@ -13,13 +13,14 @@
 
 <h:body style="padding-top: 50px; padding-bottom: 20px;">
 	<h:form id="frmMenu">
-		<b:navBar brand="Elétros do México" brandHref="#" inverse="true"
-			fixed="top">
+		<b:navBar brand="Elétros do México"
+			brandHref="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"
+			inverse="true" fixed="top">
 			<b:navbarLinks>
 				<b:navLink value="Home"
 					href="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Clientes"
-					href="/projeto-web/view/cliente/cliente.xhtml?faces-redirect=true"></b:navLink>
+					href="#"></b:navLink>
 				<b:navLink value="Produtos"
 					href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Trocas" href="#"></b:navLink>
@@ -65,8 +66,8 @@
 							<h:outputText value="Telefone" for="telefone" />
 						</b:column>
 						<b:column col-md="4" col-sm="2">
-								<p:inputMask mask="(99) 9999-9999" placeholder="Telefone" id="telefone"
-								value="#{clienteBean.cliente.telefone}"></p:inputMask>
+							<p:inputMask mask="(99) 9999-9999" placeholder="Telefone"
+								id="telefone" value="#{clienteBean.cliente.telefone}"></p:inputMask>
 						</b:column>
 					</b:row>
 					<b:commandButton action="#{clienteBean.cadastra}" icon="user"
@@ -77,7 +78,8 @@
 		<b:tab title="Consultar clientes">
       				Lista de Clientes
       		<h:form>
-				<b:dataTable value="#{clienteBean.clientes}" var="cliente">
+				<b:dataTable value="#{clienteBean.clientes}" var="cliente"
+					excel="true" pdf="true" columnVisibility="true" paginated="true">
 					<b:dataTableColumn value="#{cliente.nome}" order="asc" />
 					<b:dataTableColumn value="#{cliente.cpf}" />
 					<b:dataTableColumn value="#{cliente.telefone}" />
@@ -102,10 +104,12 @@
 			</h:form>
 		</b:tab>
 	</b:tabView>
-		<b:container>
+	<b:container>
+		<p style="color: navy; text-align: center">Obs: Campos com * são
+			obrigatórios.</p>
 		<hr />
 		<footer>
-			<p>Obs: Campos com * são necessários.</p>
+			<p>© Elétros do México 2018</p>
 		</footer>
 
 	</b:container>

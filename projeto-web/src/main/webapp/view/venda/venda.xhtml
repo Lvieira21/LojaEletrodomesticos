@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Elétros do México - Menu</title>
+	<link type="text/css" rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/estilo.css" />
+</h:head>
+
+<h:body style="padding-top: 50px; padding-bottom: 20px;">
+	<h:form id="frmMenu">
+		<b:navBar brand="Elétros do México"
+			brandHref="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"
+			inverse="true" fixed="top">
+			<b:navbarLinks>
+				<b:navLink value="Home"
+					href="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Clientes"
+					href="/projeto-web/view/cliente/cliente.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Produtos"
+					href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Trocas" href="#"></b:navLink>
+			</b:navbarLinks>
+			<b:navbarLinks pull="right">
+				<b:navCommandLink icon="glyphicon glyphicon-log-out" value="Sair"
+					action="#{loginBean.desloga}" process="@this"></b:navCommandLink>
+			</b:navbarLinks>
+		</b:navBar>
+	</h:form>
+	<h:form>
+		<h2>Realizar venda</h2>
+		<p:messages autoUpdate="true" showDetail="true" />
+		<b:tabView contentStyle="border: 1px solid #ddd;padding:10px"
+			id="tabVenda">
+			<b:tab title="Selecione o cliente">
+				<B>Selecione o cliente para fazer a venda ou altere-o para
+					limpar o carrinho</B>
+				<h:form id="frmsSelecaoCliente">
+					<b:dataTable value="#{clienteBean.clientes}" var="cliente"
+						selected-items="row" selectionMode="single" select="true"
+						selection-info="false"
+						onselect="ajax:vendaBean.selecionaCliente(cliente)"
+						ondeselect="ajax:vendaBean.removeCliente()" process="@this">
+						<b:dataTableColumn value="#{cliente.nome}" order="asc" />
+						<b:dataTableColumn value="#{cliente.cpf}" />
+						<b:dataTableColumn value="#{cliente.telefone}" />
+						<b:dataTableColumn value="#{cliente.endereco}" />
+					</b:dataTable>
+				</h:form>
+			</b:tab>
+
+			<b:tab title="Selecione os Produtos">
+
+				<h:form id="listaProdFrm">
+					<b:dataTable var="produto" value="#{produtoBean.produtos}"
+						selected-items="row" select="true" selectionInfo="false"
+						selection-mode="single"
+						onselect="ajax:vendaBean.selecionaProduto(produto)"
+						process="@this">
+						<b:dataTableColumn value="#{produto.nome}" order="asc" />
+						<b:dataTableColumn value="#{produto.modelo}" />
+						<b:dataTableColumn value="#{produto.marca}" />
+						<b:dataTableColumn label="Quantidade" value="#{produto.qtd}" />
+						<b:dataTableColumn value="#{produto.valorUnitario}" />
+					</b:dataTable>
+				</h:form>
+			</b:tab>
+
+			<b:tab title="Carrinho de compras" id="carroTab"
+				onclick="ajax:vendaBean.valorTotal();" update="formCarro">
+				<h:form id="formCarro">
+					<h:body rendered="#{vendaBean.vendaCriada() == 'false'}">
+						<p style="font-size: 150%;" align="center">Selecione o cliente
+							primeiro</p>
+					</h:body>
+					<h:body rendered="#{vendaBean.vendaCriada()}">
+						<p style="font-size: 150%;" align="center">Carrinho de compras
+							de #{vendaBean.venda.cliente.nome}</p>
+					</h:body>
+					<b:dataTable id="tb_prodVend" var="produtoVenda"
+						value="#{vendaBean.venda.produtos}"
+						rendered="#{vendaBean.vendaCriada()}">
+						<b:dataTableColumn value="#{produtoVenda.produto.nome}"
+							order="asc" />
+						<b:dataTableColumn value="#{produtoVenda.produto.modelo}" />
+						<b:dataTableColumn value="#{produtoVenda.produto.marca}" />
+						<b:dataTableColumn label="Quantidade"
+							value="#{produtoVenda.qtdVendida}" />
+						<b:dataTableColumn label="Valor unitário">
+							<b:inputText tooltip="Mude para o preço praticado e confirme abaixo" style="font-size: 90%;"
+								value="#{produtoVenda.valorUnitario}"></b:inputText>
+						</b:dataTableColumn>
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Opções"></h:outputText>
+							</f:facet>
+							<p:commandButton icon="ui-icon-plus"
+								actionListener="#{vendaBean.aumenta(produtoVenda)}"
+								process="@this" update="@form" />
+							<p:commandButton icon="ui-icon-minus"
+								actionListener="#{vendaBean.diminui(produtoVenda)}"
+								process="@this" update="@form" />
+							<p:commandButton icon="ui-icon-close"
+								actionListener="#{vendaBean.retiraProduto(produtoVenda.produto)}"
+								process="@this" update="@form">
+								<p:confirm header="Confirmação"
+									message="Deseja retirar o produto do carrinho?"
+									icon="ui-icon-alert" />
+							</p:commandButton>
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Sim" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Não" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</h:column>
+					</b:dataTable>
+					<B style=" font-size: 120%; text-align: center">Valor total: #{vendaBean.venda.valorTotal}</B>
+					<p:commandButton style="float:right;" iconPos="right" styleClass="ui-priority-primary"
+						icon="fa fa-fw fa-check-square-o" value="Confirmar pedido" actionListener="#{vendaBean.vender()}"
+						process="@form" update="@form">
+						<p:confirm header="Confirmação"
+							message="Deseja retirar o produto do carrinho?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</h:form>
+			</b:tab>
+		</b:tabView>
+	</h:form>
+	<br />
+
+	<b:container>
+		<hr />
+		<footer>
+			<p>© Elétros do México 2018</p>
+		</footer>
+	</b:container>
+</h:body>
+
+</html>

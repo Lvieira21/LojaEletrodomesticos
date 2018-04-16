@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 //import javax.enterprise.context.ApplicationScoped;
 //import javax.faces.view.ViewScoped;
 //import javax.enterprise.context.RequestScoped;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;

@@ -11,16 +11,21 @@
 		href="#{facesContext.externalContext.requestContextPath}/resources/css/estilo.css" />
 </h:head>
 
-<h:body>
+<h:body style="padding-top: 50px; padding-bottom: 20px;">
+	<h:form id="frmMenu">
+		<b:navBar brand-align="left" brand="Elétros do México" brandHref="#"
+			inverse="true" fixed="top">
+		</b:navBar>
+	</h:form>
 
 	<h:form id="frmLogin">
+		<br />
 		<p:messages autoUpdate="true" showDetail="true" />
 		<br />
-		<br />
 		<b:row>
-		<b:column></b:column>
+			<b:column></b:column>
 			<b:container layout="fluid">
-				<b:panelGrid columns="3" colSpans="3,6,3" col-md="12" >
+				<b:panelGrid columns="3" colSpans="3,6,3" col-md="12">
 					<h:outputText></h:outputText>
 					<b:panel title="Por favor, faça o login" look="primary"
 						collapsible="false">
@@ -58,7 +63,8 @@
 						<b:row>
 							<b:column col-xs="6" col-md="4">
 								<b:commandButton value="Confirma" action="#{loginBean.loga}"
-									process="@form" update="@form" icon="glyphicon glyphicon-log-in" look="primary" />
+									process="@form" update="@form"
+									icon="glyphicon glyphicon-log-in" look="primary" />
 							</b:column>
 							<b:column col-xs="6" col-md="4" offset="4">
 								<b:commandButton value="Esqueci a senha"

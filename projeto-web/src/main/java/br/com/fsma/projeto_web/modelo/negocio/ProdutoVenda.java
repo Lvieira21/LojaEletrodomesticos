@@ -60,11 +60,11 @@ public class ProdutoVenda implements Serializable {
 		this.qtdVendida = qtdVendida;
 	}
 
-	public Venda getVeda() {
+	public Venda getVenda() {
 		return venda;
 	}
 
-	public void setVeda(Venda venda) {
+	public void setVenda(Venda venda) {
 		this.venda = venda;
 	}
 
@@ -89,6 +89,7 @@ public class ProdutoVenda implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
 		return result;
 	}
 
@@ -106,7 +107,14 @@ public class ProdutoVenda implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (produto == null) {
+			if (other.produto != null)
+				return false;
+		} else if (!produto.equals(other.produto))
+			return false;
 		return true;
 	}
+
+
 
 }
