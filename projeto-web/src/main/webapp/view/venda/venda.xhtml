@@ -65,7 +65,7 @@
 						<b:dataTableColumn value="#{produto.modelo}" />
 						<b:dataTableColumn value="#{produto.marca}" />
 						<b:dataTableColumn label="Quantidade" value="#{produto.qtd}" />
-						<b:dataTableColumn value="#{produto.valorUnitario}" />
+						<b:dataTableColumn label="Unidade(R$)" value="#{produto.valorUnitario}" />
 					</b:dataTable>
 				</h:form>
 			</b:tab>
@@ -91,7 +91,7 @@
 						<b:dataTableColumn value="#{produtoVenda.produto.marca}" />
 						<b:dataTableColumn label="Quantidade"
 							value="#{produtoVenda.qtdVendida}" />
-						<b:dataTableColumn label="Valor unitário">
+						<b:dataTableColumn label="Unidade(R$)">
 							<b:inputText style="font-size: 90%;"
 								value="#{produtoVenda.valorUnitario}"></b:inputText>
 							<b:commandButton size="sm" icon="refresh" update="@form"
@@ -126,7 +126,7 @@
 					</b:dataTable>
 					<h:body rendered="#{vendaBean.vendaCriada()}">
 						<p style="font-size: 120%;" align="center">Valor total:
-						#{vendaBean.venda.valorTotal}</p>
+						R$#{vendaBean.venda.valorTotal}</p>
 					</h:body>
 					
 					<p:commandButton style="float:right;" iconPos="right"

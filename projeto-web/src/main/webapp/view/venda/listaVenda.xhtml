@@ -33,18 +33,41 @@
 	</h:form>
 
 	<h1 style="text-align: center;">Todas as vendas</h1>
-	<b:container>
-		<b:column medium-screen="6">
-			<b:dataTable var="venda" value="#{vendaBean.vendas}" excel="true"
-				pdf="true" columnVisibility="true" selected-items="row" select="true" selectionInfo="false"
-						selection-mode="single">
-				<b:dataTableColumn label="# Venda" value="#{venda.id}"
-					order="asc" />
-				<b:dataTableColumn value="#{venda.cliente.nome}" />
-				<b:dataTableColumn label="Valor total" value="#{venda.valorTotal}" />
-			</b:dataTable>
-		</b:column>
-	</b:container>
+	<h:form id="frmDetalhes">
+		<b:container>
+			<b:column medium-screen="6">
+				<b:dataTable var="venda" value="#{vendaBean.vendas}" excel="true"
+					pdf="true" selected-items="row" select="true" selectionInfo="false"
+					selection-mode="single" info="false"
+					onselect="ajax:vendaBean.selecionaVenda(venda)" process="@this"
+					update=":frmDetalhes:detalhesVenda">
+					<b:dataTableColumn label="# Venda" value="#{venda.id}" order="asc" />
+					<b:dataTableColumn value="#{venda.cliente.nome}" />
+					<b:dataTableColumn label="Valor total" value="#{venda.valorTotal}" />
+				</b:dataTable>
+			</b:column>
+			<b:column medium-screen="6" id="detalhesVenda">
+				<h:body rendered="#{vendaBean.vendaCriada() == 'false'}">
+					<p style="font-size: 150%;" align="center">Selecione a venda
+						primeiro</p>
+				</h:body>
+				<h:body rendered="#{vendaBean.vendaCriada()}">
+					<p style="font-size: 140%;" align="center">Numero da Venda:
+						#{vendaBean.venda.id}</p>
+					<p style="font-size: 120%;" align="center">Cliente:
+						#{vendaBean.venda.cliente.nome}</p>
+				</h:body>
+				<b:dataTable rendered="#{vendaBean.vendaCriada()}" var="produtoVenda"
+					value="#{vendaBean.venda.produtos}" excel="true" pdf="true" paginated="false" info="false">
+					<b:dataTableColumn value="#{produtoVenda.produto.nome}" order="asc" />
+					<b:dataTableColumn value="#{produtoVenda.produto.marca}" />
+					<b:dataTableColumn value="#{produtoVenda.produto.modelo}" />
+					<b:dataTableColumn label="Quantidade" value="#{produtoVenda.qtdVendida}" />
+					<b:dataTableColumn label="Unidade(R$)" value="#{produtoVenda.valorUnitario}" />
+				</b:dataTable>
+			</b:column>
+		</b:container>
+	</h:form>
 	<br />
 
 	<b:container>

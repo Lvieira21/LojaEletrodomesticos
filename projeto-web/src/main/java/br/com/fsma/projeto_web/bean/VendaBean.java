@@ -66,17 +66,22 @@ public class VendaBean implements Serializable {
 
 	public void selecionaProduto(Produto produto) {
 		this.produtoVenda = new ProdutoVenda();
-		this.produtoVenda.setProduto(produto);
-		this.produtoVenda.setQtdVendida(1);
-		this.produtoVenda.setValorUnitario(produto.getValorUnitario());
-		this.produtoVenda.setVenda(venda);
-		if (!(this.venda.getProdutos().contains(produtoVenda))) {
-			this.venda.getProdutos().add(produtoVenda);
-			valorTotal();
-			mensagem.addMessageSuccess("Mensagem do sistema",
-					"Produto " + produto.getNome() + " adicionado(a) ao carrinho!");
+		System.out.println(produto.getQtd());
+		if (produto.getQtd() >0) {
+			this.produtoVenda.setProduto(produto);
+			this.produtoVenda.setQtdVendida(1);
+			this.produtoVenda.setValorUnitario(produto.getValorUnitario());
+			this.produtoVenda.setVenda(venda);
+			if (!(this.venda.getProdutos().contains(produtoVenda))) {
+				this.venda.getProdutos().add(produtoVenda);
+				valorTotal();
+				mensagem.addMessageSuccess("Mensagem do sistema",
+						"Produto " + produto.getNome() + " adicionado(a) ao carrinho!");
+			} else {
+				mensagem.addMessageError("Erro!", "Produto já está no carrinho");
+			}
 		} else {
-			mensagem.addMessageError("Erro!", "Produto já está no carrinho");
+			mensagem.addMessageError("Erro!", "Não há estoque desse produto");
 		}
 	}
 
@@ -151,6 +156,14 @@ public class VendaBean implements Serializable {
 
 	public List<Venda> getVendas() {
 		return vendaDao.listaTodos();
+	}
+
+	public boolean selecionaVenda(Venda venda) {
+		this.venda = venda;
+		if (this.venda != null) {
+			return true;
+		}
+		return false;
 	}
 
 	public boolean vendaCriada() {
