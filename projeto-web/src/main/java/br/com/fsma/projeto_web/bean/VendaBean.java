@@ -39,8 +39,7 @@ public class VendaBean implements Serializable {
 
 	@Inject
 	private ProdutoDAO produtoDao;
-	
-	
+
 	public Venda getVenda() {
 		return venda;
 	}
@@ -122,7 +121,6 @@ public class VendaBean implements Serializable {
 		venda.setValorTotal(valor);
 		return valor;
 	}
-	
 
 	@Transacional
 	public void retiraDoEstoque() {
@@ -135,25 +133,26 @@ public class VendaBean implements Serializable {
 			}
 		}
 	}
-	
-	
+
 	@Transacional
 	public void vender() {
-		vendaDao.adiciona(venda);
-		for (ProdutoVenda prodVend : venda.getProdutos()) {
-			System.out.println("Registrando " + prodVend.getProduto().getNome());
-			produtoVendaDao.adiciona(prodVend);
+		if (!(venda.getProdutos().isEmpty())) {
+			vendaDao.adiciona(venda);
+			for (ProdutoVenda prodVend : venda.getProdutos()) {
+				produtoVendaDao.adiciona(prodVend);
+			}
+			retiraDoEstoque();
+			mensagem.addMessageSuccess("Mensagem do sistema", "Venda concluída com sucesso.");
+			removeCliente();
+		} else {
+			mensagem.addMessageError("Erro!", "Carrinho vazio");
 		}
-		retiraDoEstoque();
-		mensagem.addMessageSuccess("Mensagem do sistema", "Venda concluída com sucesso.");
-		removeCliente();
 	}
 
 	public List<Venda> getVendas() {
 		return vendaDao.listaTodos();
 	}
-	
-	
+
 	public boolean vendaCriada() {
 		if (this.venda.getCliente() == null) {
 			return false;

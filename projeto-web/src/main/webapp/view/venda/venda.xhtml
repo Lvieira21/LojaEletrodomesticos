@@ -124,11 +124,14 @@
 							</p:confirmDialog>
 						</h:column>
 					</b:dataTable>
-					<B style="font-size: 120%; text-align: center">Valor total:
-						#{vendaBean.venda.valorTotal}</B>
+					<h:body rendered="#{vendaBean.vendaCriada()}">
+						<p style="font-size: 120%;" align="center">Valor total:
+						#{vendaBean.venda.valorTotal}</p>
+					</h:body>
+					
 					<p:commandButton style="float:right;" iconPos="right"
 						styleClass="ui-priority-primary" icon="fa fa-fw fa-check-square-o"
-						value="Confirmar pedido" actionListener="#{vendaBean.vender()}"
+						value="Confirmar pedido" actionListener="#{vendaBean.vender()}" rendered="#{vendaBean.vendaCriada()}"
 						process="@form" update="@form">
 						<p:confirm header="Confirmação"
 							message="Deseja finalizar a venda?"

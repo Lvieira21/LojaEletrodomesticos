@@ -31,16 +31,20 @@
 			</b:navbarLinks>
 		</b:navBar>
 	</h:form>
-	
-	<h1 style="text-align: center;">Todas as vendas</h1>
-	<b:dataTable var="venda"
-		value="#{vendaBean.vendas}" excel="true" pdf="true"
-		columnVisibility="true">
-		<b:dataTableColumn label="Número da venda" value="#{venda.id}" order="asc" />
-		<b:dataTableColumn value="#{venda.cliente.nome}" />
-		<b:dataTableColumn label="Valor total" value="#{venda.valorTotal}" />
-	</b:dataTable>
 
+	<h1 style="text-align: center;">Todas as vendas</h1>
+	<b:container>
+		<b:column medium-screen="6">
+			<b:dataTable var="venda" value="#{vendaBean.vendas}" excel="true"
+				pdf="true" columnVisibility="true" selected-items="row" select="true" selectionInfo="false"
+						selection-mode="single">
+				<b:dataTableColumn label="# Venda" value="#{venda.id}"
+					order="asc" />
+				<b:dataTableColumn value="#{venda.cliente.nome}" />
+				<b:dataTableColumn label="Valor total" value="#{venda.valorTotal}" />
+			</b:dataTable>
+		</b:column>
+	</b:container>
 	<br />
 
 	<b:container>
