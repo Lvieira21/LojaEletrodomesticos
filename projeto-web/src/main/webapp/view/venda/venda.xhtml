@@ -83,7 +83,8 @@
 					</h:body>
 					<b:dataTable id="tb_prodVend" var="produtoVenda"
 						value="#{vendaBean.venda.produtos}"
-						rendered="#{vendaBean.vendaCriada()}">
+						rendered="#{vendaBean.vendaCriada()}" info="false"
+						paginated="false">
 						<b:dataTableColumn value="#{produtoVenda.produto.nome}"
 							order="asc" />
 						<b:dataTableColumn value="#{produtoVenda.produto.modelo}" />
@@ -91,20 +92,22 @@
 						<b:dataTableColumn label="Quantidade"
 							value="#{produtoVenda.qtdVendida}" />
 						<b:dataTableColumn label="Valor unitário">
-							<b:inputText tooltip="Mude para o preço praticado e confirme abaixo" style="font-size: 90%;"
+							<b:inputText style="font-size: 90%;"
 								value="#{produtoVenda.valorUnitario}"></b:inputText>
+							<b:commandButton size="sm" icon="refresh" update="@form"
+								process="@form" actionListener="#{vendaBean.valorTotal()}"></b:commandButton>
 						</b:dataTableColumn>
-						
+
 						<h:column>
 							<f:facet name="header">
 								<h:outputText value="Opções"></h:outputText>
 							</f:facet>
 							<p:commandButton icon="ui-icon-plus"
 								actionListener="#{vendaBean.aumenta(produtoVenda)}"
-								process="@this" update="@form" />
+								process="@form" update="@form" />
 							<p:commandButton icon="ui-icon-minus"
 								actionListener="#{vendaBean.diminui(produtoVenda)}"
-								process="@this" update="@form" />
+								process="@form" update="@form" />
 							<p:commandButton icon="ui-icon-close"
 								actionListener="#{vendaBean.retiraProduto(produtoVenda.produto)}"
 								process="@this" update="@form">
@@ -121,12 +124,14 @@
 							</p:confirmDialog>
 						</h:column>
 					</b:dataTable>
-					<B style=" font-size: 120%; text-align: center">Valor total: #{vendaBean.venda.valorTotal}</B>
-					<p:commandButton style="float:right;" iconPos="right" styleClass="ui-priority-primary"
-						icon="fa fa-fw fa-check-square-o" value="Confirmar pedido" actionListener="#{vendaBean.vender()}"
+					<B style="font-size: 120%; text-align: center">Valor total:
+						#{vendaBean.venda.valorTotal}</B>
+					<p:commandButton style="float:right;" iconPos="right"
+						styleClass="ui-priority-primary" icon="fa fa-fw fa-check-square-o"
+						value="Confirmar pedido" actionListener="#{vendaBean.vender()}"
 						process="@form" update="@form">
 						<p:confirm header="Confirmação"
-							message="Deseja retirar o produto do carrinho?"
+							message="Deseja finalizar a venda?"
 							icon="ui-icon-alert" />
 					</p:commandButton>
 
