@@ -10,7 +10,6 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import br.com.fsma.projeto_web.modelo.negocio.Venda;
-import br.com.fsma.projeto_web.modelo.negocio.Venda;
 
 @Named
 @RequestScoped

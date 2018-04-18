@@ -31,7 +31,122 @@
 			</b:navbarLinks>
 		</b:navBar>
 	</h:form>
-	
-	<h1>TROCAS</h1>
+
+	<h2>Realizar Troca</h2>
+	<b:container fluid="true">
+		<p:messages autoUpdate="true" showDetail="true" />
+		<b:tabView contentStyle="border: 1px solid #ddd;padding:10px"
+			id="tabTroca">
+			<b:tab title="Trocar produto">
+				<b:form id="formTroca">
+					<b:container>
+						<b:row>
+							<b:column col-md="1">
+								<h:outputText value="Cliente: "></h:outputText>
+							</b:column>
+							<b:column col-md="3">
+								<b:selectOneMenu id="cliente" value="#{trocaBean.troca.cliente}"
+									onchange="ajax:trocaBean.clienteSelecionado();" process="@this"
+									update="@form">
+									<f:selectItem itemLabel="Selecione um cliente..." />
+									<f:selectItems value="#{clienteBean.clientes}" var="cliente"
+										itemValue="#{cliente}" itemLabel="#{cliente.nome}" />
+								</b:selectOneMenu>
+							</b:column>
+							<b:container rendered="#{trocaBean.vendaSelecionada()}">
+								<b:column offset="2" col-md="1">
+									<h:outputText value="Produto: ">
+									</h:outputText>
+								</b:column>
+								<b:column col-md="3">
+									<b:selectOneMenu id="produto"
+										value="#{trocaBean.troca.produtoVenda}"
+										onchange="ajax:trocaBean.produtoSelecionado();"
+										process="@this" update="@form">
+										<f:selectItem itemLabel="Selecione o produto..." />
+										<f:selectItems value="#{trocaBean.troca.venda.produtos}"
+											var="produto" itemValue="#{produto}"
+											itemLabel="#{produto.produto.nome}" />
+									</b:selectOneMenu>
+								</b:column>
+							</b:container>
+						</b:row>
+						<b:row rendered="#{trocaBean.clienteSelecionado()}">
+							<b:column col-md="1">
+								<h:outputText value="Venda: ">
+								</h:outputText>
+							</b:column>
+							<b:column col-md="3">
+								<b:selectOneMenu id="venda" value="#{trocaBean.troca.venda}"
+									onchange="ajax:trocaBean.vendaSelecionada();" process="@this"
+									update="@form">
+									<f:selectItem itemLabel="Selecione uma venda..." />
+									<f:selectItems value="#{trocaBean.listaVendasProdutos}"
+										var="venda" itemValue="#{venda}" itemLabel="#{venda}" />
+								</b:selectOneMenu>
+							</b:column>
+							<b:container rendered="#{trocaBean.produtoSelecionado()}">
+								<b:column offset="2" col-md="1">
+									<h:outputText value="N/S: *">
+									</h:outputText>
+								</b:column>
+								<b:column col-md="3">
+									<b:inputText value="#{trocaBean.troca.numeroSerie}"
+										required="true" placeholder="Número de série" id="numeroSerie"></b:inputText>
+								</b:column>
+							</b:container>
+						</b:row>
+						<b:row rendered="#{trocaBean.produtoSelecionado()}">
+							<b:inputTextarea rows="3" required="true"
+								placeholder="Breve descrição do defeito..." label="Descrição"
+								value="#{trocaBean.troca.descricaoDefeito}">
+								<f:facet name="append">
+									<b:iconAwesome name="envelope-o" size="2x" />
+								</f:facet>
+							</b:inputTextarea>
+						</b:row>
+						<b:row rendered="#{trocaBean.produtoSelecionado()}">
+							<b:column offset="5" col-md="4">
+								<p:commandButton iconPos="right"
+									styleClass="ui-priority-primary"
+									icon="fa fa-fw fa-check-square-o" value="Confirmar troca"
+									actionListener="#{trocaBean.trocar()}" process="@form"
+									update="@form">
+									<p:confirm header="Confirmação" message="Confirma a troca?"
+										icon="ui-icon-alert" />
+								</p:commandButton>
+
+								<p:confirmDialog global="true" showEffect="fade"
+									hideEffect="fade">
+									<p:commandButton value="Sim" type="button"
+										styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+									<p:commandButton value="Não" type="button"
+										styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+								</p:confirmDialog>
+							</b:column>
+						</b:row>
+					</b:container>
+				</b:form>
+			</b:tab>
+			<b:tab title="Trocas" ajax="true" onclick="ajax:trocaBean.getTrocas()" update="frmTrocas">
+				<h:form id="frmTrocas">
+					<h:body>
+						<p style="font-size: 150%;" align="center">Lista de trocas</p>
+					</h:body>
+					<b:dataTable var="troca" value="#{trocaBean.trocas}"
+						excel="true" pdf="true" paginated="false" info="false">
+						<b:dataTableColumn label="# Troca" value="#{troca.id}"
+							order="asc" />
+						<b:dataTableColumn label="Cliente" value="#{troca.cliente.nome}" />
+						<b:dataTableColumn label="# Venda" value="#{troca.venda.id}" />
+						<b:dataTableColumn label="Produto" value="#{troca.produtoVenda.produto.nome}" />
+						<b:dataTableColumn label="Descrição do defeito" value="#{troca.descricaoDefeito}" />
+					</b:dataTable>
+				</h:form>
+			</b:tab>
+
+		</b:tabView>
+
+	</b:container>
 </h:body>
 </html>

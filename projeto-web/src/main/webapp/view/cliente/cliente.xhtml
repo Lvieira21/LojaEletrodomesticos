@@ -22,7 +22,7 @@
 				<b:navLink value="Clientes" href="#"></b:navLink>
 				<b:navLink value="Produtos"
 					href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
-				<b:navLink value="Trocas" href="#"></b:navLink>
+				<b:navLink value="Trocas" href="/projeto-web/view/troca/troca.xhtml?faces-redirect=true"></b:navLink>
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
 				<b:navCommandLink icon="glyphicon glyphicon-log-out" value="Sair"
@@ -39,14 +39,14 @@
 				<b:container>
 					<b:row>
 						<b:column col-sm="1">
-							<h:outputText value="Nome*" for="nome" />
+							<h:outputText value="Nome *" for="nome" />
 						</b:column>
 						<b:column col-md="4" col-sm="2">
 							<b:inputText placeholder="Nome completo" id="nome"
 								value="#{clienteBean.cliente.nome}"></b:inputText>
 						</b:column>
 						<b:column col-sm="1">
-							<h:outputText value="CPF*" for="cpf" />
+							<h:outputText value="CPF *" for="cpf" />
 						</b:column>
 						<b:column col-md="4" col-sm="2">
 							<b:inputText mask="999.999.999-99" placeholder="CPF" id="cpf"
@@ -55,7 +55,7 @@
 					</b:row>
 					<b:row>
 						<b:column col-sm="1">
-							<h:outputText value="Endereço*" for="endereco" />
+							<h:outputText value="Endereço *" for="endereco" />
 						</b:column>
 						<b:column col-md="4" col-sm="2">
 							<b:inputText placeholder="Endereço" id="endereco"

@@ -109,4 +109,9 @@ public class Venda implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Venda #" + id + " em " + dataVenda;
+	}
+	
 }
