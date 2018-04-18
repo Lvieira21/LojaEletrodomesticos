@@ -38,14 +38,21 @@ public class ClienteBean implements Serializable {
 	@Transacional
 	public void cadastra() {
 		if (clienteDao.existe(cliente) == false) {
-			if (clienteDao.verificaCpf(cliente)) {
-				clienteDao.adiciona(cliente);
-				mensagem.addMessageSuccess("Mensagem do Sistema",
-						"Cliente " + cliente.getNome() + " cadastrado com sucesso!");
-				this.cliente = new Cliente();
+			if (clienteDao.numeroValido(cliente)) {
+				cliente.setTelefone(clienteDao.celularOuFixo(cliente));
+				if (clienteDao.verificaCpf(cliente)) {
+					clienteDao.celularOuFixo(cliente);
+					clienteDao.adiciona(cliente);
+					mensagem.addMessageSuccess("Mensagem do Sistema",
+							"Cliente " + cliente.getNome() + " cadastrado com sucesso!");
+					this.cliente = new Cliente();
+				} else {
+					mensagem.addMessageError("Erro!", "CPF inválido");
+				}
 			} else {
-				mensagem.addMessageError("Erro!", "CPF inválido");
+				mensagem.addMessageError("Erro!", "Telefone inválido");
 			}
+
 		} else {
 			mensagem.addMessageError("Erro!", "CPF já cadastrado");
 			this.cliente = new Cliente();

@@ -19,8 +19,7 @@
 			<b:navbarLinks>
 				<b:navLink value="Home"
 					href="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"></b:navLink>
-				<b:navLink value="Clientes"
-					href="#"></b:navLink>
+				<b:navLink value="Clientes" href="#"></b:navLink>
 				<b:navLink value="Produtos"
 					href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Trocas" href="#"></b:navLink>
@@ -50,8 +49,8 @@
 							<h:outputText value="CPF*" for="cpf" />
 						</b:column>
 						<b:column col-md="4" col-sm="2">
-							<p:inputMask mask="999.999.999-99" placeholder="CPF" id="cpf"
-								value="#{clienteBean.cliente.cpf}"></p:inputMask>
+							<b:inputText mask="999.999.999-99" placeholder="CPF" id="cpf"
+								value="#{clienteBean.cliente.cpf}"></b:inputText>
 						</b:column>
 					</b:row>
 					<b:row>
@@ -66,8 +65,8 @@
 							<h:outputText value="Telefone" for="telefone" />
 						</b:column>
 						<b:column col-md="4" col-sm="2">
-							<p:inputMask mask="(99) 9999-9999" placeholder="Telefone"
-								id="telefone" value="#{clienteBean.cliente.telefone}"></p:inputMask>
+							<b:inputText mask="(99) 9999-99999" tooltip="Fixo ou celular" placeholder="Telefone" required="true"
+								id="telefone" value="#{clienteBean.cliente.telefone}"></b:inputText>
 						</b:column>
 					</b:row>
 					<b:commandButton action="#{clienteBean.cadastra}" icon="user"

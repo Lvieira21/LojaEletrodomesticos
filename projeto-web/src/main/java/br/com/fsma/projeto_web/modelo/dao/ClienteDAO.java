@@ -69,22 +69,20 @@ public class ClienteDAO implements Serializable {
 		if (testaDigitosIguais(cpfNumber)) {
 			if (testaDigitoUm(cpfNumber)) {
 				if (testaDigitoDois(cpfNumber)) {
-					System.out.println("CPF válido");
 					return true;
 				}
 			}
 		}
-		System.out.println("CPF inválido");
 		return false;
 	}
 
 	public boolean testaDigitosIguais(int[] cpfNumber) {
 		for (int i = 0; i < cpfNumber.length; i++) {
 			if (cpfNumber[i] == cpfNumber[i + 1]) {
-				if (i == cpfNumber.length-2)
+				if (i == cpfNumber.length - 2)
 					return false;
 			}
-			if (cpfNumber[i] != cpfNumber[i+1])
+			if (cpfNumber[i] != cpfNumber[i + 1])
 				return true;
 		}
 		return false;
@@ -116,6 +114,19 @@ public class ClienteDAO implements Serializable {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean numeroValido(Cliente cliente) {
+		String telefoneNumero = cliente.getTelefone().replaceAll("[^0-9]", "");
+		if (telefoneNumero.length() >= 10) {
+			return true;
+		}
+		return false;
+	}
+
+	public String celularOuFixo(Cliente cliente) {
+		String telefone = cliente.getTelefone().replace("_", "");
+		return telefone;
 	}
 
 	public List<Cliente> listaTodos() {
