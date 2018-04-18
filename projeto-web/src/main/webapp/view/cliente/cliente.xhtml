@@ -22,7 +22,14 @@
 				<b:navLink value="Clientes" href="#"></b:navLink>
 				<b:navLink value="Produtos"
 					href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
-				<b:navLink value="Trocas" href="/projeto-web/view/troca/troca.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Trocas"
+					href="/projeto-web/view/troca/troca.xhtml?faces-redirect=true"></b:navLink>
+				<b:dropMenu value="Venda">
+					<b:navLink value="Vender"
+						href="/projeto-web/view/venda/venda.xhtml?faces-redirect=true"></b:navLink>
+					<b:navLink value="Relatórios de Venda"
+						href="/projeto-web/view/venda/listaVenda.xhtml?faces-redirect=true"></b:navLink>
+				</b:dropMenu>
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
 				<b:navCommandLink icon="glyphicon glyphicon-log-out" value="Sair"
@@ -65,8 +72,9 @@
 							<h:outputText value="Telefone" for="telefone" />
 						</b:column>
 						<b:column col-md="4" col-sm="2">
-							<b:inputText mask="(99) 9999-99999" tooltip="Fixo ou celular" placeholder="Telefone" required="true"
-								id="telefone" value="#{clienteBean.cliente.telefone}"></b:inputText>
+							<b:inputText mask="(99) 9999-99999" tooltip="Fixo ou celular"
+								placeholder="Telefone" required="true" id="telefone"
+								value="#{clienteBean.cliente.telefone}"></b:inputText>
 						</b:column>
 					</b:row>
 					<b:commandButton action="#{clienteBean.cadastra}" icon="user"
@@ -99,6 +107,18 @@
 								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 						</p:confirmDialog>
 					</h:column>
+				</b:dataTable>
+			</h:form>
+		</b:tab>
+
+		<b:tab title="Clientes que não trocaram produtos">
+			<h:form>
+				<b:dataTable value="#{clienteBean.clientesSemTroca}" var="cliente"
+					excel="true" pdf="true" columnVisibility="true" paginated="true">
+					<b:dataTableColumn value="#{cliente.nome}" order="asc" />
+					<b:dataTableColumn value="#{cliente.cpf}" />
+					<b:dataTableColumn value="#{cliente.telefone}" />
+					<b:dataTableColumn value="#{cliente.endereco}" />
 				</b:dataTable>
 			</h:form>
 		</b:tab>

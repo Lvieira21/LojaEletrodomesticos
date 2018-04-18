@@ -23,7 +23,13 @@
 					href="/projeto-web/view/cliente/cliente.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Produtos"
 					href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
-				<b:navLink value="Trocas" href="/projeto-web/view/troca/troca.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Trocas"
+					href="/projeto-web/view/troca/troca.xhtml?faces-redirect=true"></b:navLink>
+				<b:dropMenu value="Venda">
+					<b:navLink value="Vender" href="#"></b:navLink>
+					<b:navLink value="Relatórios de Venda"
+						href="/projeto-web/view/venda/listaVenda.xhtml?faces-redirect=true"></b:navLink>
+				</b:dropMenu>
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
 				<b:navCommandLink icon="glyphicon glyphicon-log-out" value="Sair"
@@ -65,7 +71,8 @@
 						<b:dataTableColumn value="#{produto.modelo}" />
 						<b:dataTableColumn value="#{produto.marca}" />
 						<b:dataTableColumn label="Quantidade" value="#{produto.qtd}" />
-						<b:dataTableColumn label="Unidade(R$)" value="#{produto.valorUnitario}" />
+						<b:dataTableColumn label="Unidade(R$)"
+							value="#{produto.valorUnitario}" />
 					</b:dataTable>
 				</h:form>
 			</b:tab>
@@ -126,16 +133,16 @@
 					</b:dataTable>
 					<h:body rendered="#{vendaBean.vendaCriada()}">
 						<p style="font-size: 120%;" align="center">Valor total:
-						R$#{vendaBean.venda.valorTotal}</p>
+							R$#{vendaBean.venda.valorTotal}</p>
 					</h:body>
-					
+
 					<p:commandButton style="float:right;" iconPos="right"
 						styleClass="ui-priority-primary" icon="fa fa-fw fa-check-square-o"
-						value="Confirmar pedido" actionListener="#{vendaBean.vender()}" rendered="#{vendaBean.vendaCriada()}"
-						process="@form" update="@form">
+						value="Confirmar pedido" actionListener="#{vendaBean.vender()}"
+						rendered="#{vendaBean.vendaCriada()}" process="@form"
+						update="@form">
 						<p:confirm header="Confirmação"
-							message="Deseja finalizar a venda?"
-							icon="ui-icon-alert" />
+							message="Deseja finalizar a venda?" icon="ui-icon-alert" />
 					</p:commandButton>
 
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

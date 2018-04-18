@@ -24,6 +24,12 @@
 				<b:navLink value="Produtos"
 					href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Trocas" href="#"></b:navLink>
+				<b:dropMenu value="Venda">
+					<b:navLink value="Vender"
+						href="/projeto-web/view/venda/venda.xhtml?faces-redirect=true"></b:navLink>
+					<b:navLink value="Relatórios de Venda"
+						href="/projeto-web/view/venda/listaVenda.xhtml?faces-redirect=true"></b:navLink>
+				</b:dropMenu>
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
 				<b:navCommandLink icon="glyphicon glyphicon-log-out" value="Sair"
@@ -66,7 +72,7 @@
 										<f:selectItem itemLabel="Selecione o produto..." />
 										<f:selectItems value="#{trocaBean.troca.venda.produtos}"
 											var="produto" itemValue="#{produto}"
-											itemLabel="#{produto.produto.nome}" />
+											itemLabel="#{produto.produto.nome} - #{produto.produto.modelo}" />
 									</b:selectOneMenu>
 								</b:column>
 							</b:container>
@@ -128,25 +134,39 @@
 					</b:container>
 				</b:form>
 			</b:tab>
-			<b:tab title="Trocas" ajax="true" onclick="ajax:trocaBean.getTrocas()" update="frmTrocas">
+			<b:tab title="Trocas" ajax="true"
+				onclick="ajax:trocaBean.getTrocas()" update="frmTrocas">
 				<h:form id="frmTrocas">
 					<h:body>
-						<p style="font-size: 150%;" align="center">Lista de trocas</p>
+						<p style="font-size: 150%;" align="center">Relatório de trocas</p>
 					</h:body>
-					<b:dataTable var="troca" value="#{trocaBean.trocas}"
-						excel="true" pdf="true" paginated="false" info="false">
-						<b:dataTableColumn label="# Troca" value="#{troca.id}"
-							order="asc" />
+					<b:dataTable var="troca" value="#{trocaBean.trocas}" excel="true"
+						pdf="true" paginated="false" info="false">
+						<b:dataTableColumn label="# Troca" value="#{troca.id}" order="asc" />
 						<b:dataTableColumn label="Cliente" value="#{troca.cliente.nome}" />
 						<b:dataTableColumn label="# Venda" value="#{troca.venda.id}" />
-						<b:dataTableColumn label="Produto" value="#{troca.produtoVenda.produto.nome}" />
-						<b:dataTableColumn label="Descrição do defeito" value="#{troca.descricaoDefeito}" />
+						<b:dataTableColumn label="Produto - Modelo"
+							value="#{troca.produtoVenda.produto.nome} - #{troca.produtoVenda.produto.modelo}" />
+						<b:dataTableColumn label="Data da troca"
+							value="#{troca.dataTroca}" />
+						<b:dataTableColumn label="Descrição do defeito"
+							value="#{troca.descricaoDefeito}" />
 					</b:dataTable>
 				</h:form>
 			</b:tab>
+			
+			
 
 		</b:tabView>
 
 	</b:container>
+	<b:container>
+		<hr />
+		<footer>
+			<p>© Elétros do México 2018</p>
+		</footer>
+
+	</b:container>
 </h:body>
+
 </html>

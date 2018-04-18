@@ -23,7 +23,13 @@
 					href="/projeto-web/view/cliente/cliente.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Produtos"
 					href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
-				<b:navLink value="Trocas" href="/projeto-web/view/troca/troca.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Trocas"
+					href="/projeto-web/view/troca/troca.xhtml?faces-redirect=true"></b:navLink>
+				<b:dropMenu value="Venda">
+					<b:navLink value="Vender"
+						href="/projeto-web/view/venda/venda.xhtml?faces-redirect=true"></b:navLink>
+					<b:navLink value="Relatórios de Venda" href="#"></b:navLink>
+				</b:dropMenu>
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
 				<b:navCommandLink icon="glyphicon glyphicon-log-out" value="Sair"
@@ -57,13 +63,16 @@
 					<p style="font-size: 120%;" align="center">Cliente:
 						#{vendaBean.venda.cliente.nome}</p>
 				</h:body>
-				<b:dataTable rendered="#{vendaBean.vendaCriada()}" var="produtoVenda"
-					value="#{vendaBean.venda.produtos}" excel="true" pdf="true" paginated="false" info="false">
+				<b:dataTable rendered="#{vendaBean.vendaCriada()}"
+					var="produtoVenda" value="#{vendaBean.venda.produtos}" excel="true"
+					pdf="true" paginated="false" info="false">
 					<b:dataTableColumn value="#{produtoVenda.produto.nome}" order="asc" />
 					<b:dataTableColumn value="#{produtoVenda.produto.marca}" />
 					<b:dataTableColumn value="#{produtoVenda.produto.modelo}" />
-					<b:dataTableColumn label="Quantidade" value="#{produtoVenda.qtdVendida}" />
-					<b:dataTableColumn label="Unidade(R$)" value="#{produtoVenda.valorUnitario}" />
+					<b:dataTableColumn label="Quantidade"
+						value="#{produtoVenda.qtdVendida}" />
+					<b:dataTableColumn label="Unidade(R$)"
+						value="#{produtoVenda.valorUnitario}" />
 				</b:dataTable>
 			</b:column>
 		</b:container>

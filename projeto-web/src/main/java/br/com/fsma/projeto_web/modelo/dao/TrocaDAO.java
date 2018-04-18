@@ -14,7 +14,6 @@ import br.com.fsma.projeto_web.modelo.negocio.Cliente;
 import br.com.fsma.projeto_web.modelo.negocio.Troca;
 import br.com.fsma.projeto_web.modelo.negocio.Venda;
 
-
 @Named
 @RequestScoped
 public class TrocaDAO implements Serializable {
@@ -22,7 +21,7 @@ public class TrocaDAO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private DAO<Troca> dao;
-	
+
 	@PostConstruct
 	void init() {
 		this.dao = new DAO<Troca>(this.em, Troca.class);
@@ -38,17 +37,16 @@ public class TrocaDAO implements Serializable {
 	public Troca buscaPorId(Long id) {
 		return dao.buscaPorId(id);
 	}
-	
+
 	public List<Venda> listaVendaProdutos(Cliente cliente) {
 		String jpql = "select distinct v from Venda v join fetch v.produtos where v.cliente = :pCliente";
-		
+
 		Query query = em.createQuery(jpql);
 		query.setParameter("pCliente", cliente);
 
 		List<Venda> lista = query.getResultList();
-		
+
 		return lista;
-		
 	}
 	
 	public List<Troca> listaTodos() {

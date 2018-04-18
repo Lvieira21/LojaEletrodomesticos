@@ -13,16 +13,23 @@
 
 <h:body style="padding-top: 50px; padding-bottom: 20px;">
 	<h:form id="frmMenu">
-		<b:navBar brand="Elétros do México" brandHref="/projeto-web/view/menu/menu.xhtml?faces-redirect=true" inverse="true"
-			fixed="top">
+		<b:navBar brand="Elétros do México"
+			brandHref="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"
+			inverse="true" fixed="top">
 			<b:navbarLinks>
 				<b:navLink value="Home"
 					href="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Clientes"
 					href="/projeto-web/view/cliente/cliente.xhtml?faces-redirect=true"></b:navLink>
-				<b:navLink value="Produtos"
-					href="#"></b:navLink>
-				<b:navLink value="Trocas" href="/projeto-web/view/troca/troca.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Produtos" href="#"></b:navLink>
+				<b:navLink value="Trocas"
+					href="/projeto-web/view/troca/troca.xhtml?faces-redirect=true"></b:navLink>
+				<b:dropMenu value="Venda">
+					<b:navLink value="Vender"
+						href="/projeto-web/view/venda/venda.xhtml?faces-redirect=true"></b:navLink>
+					<b:navLink value="Relatórios de Venda"
+						href="/projeto-web/view/venda/listaVenda.xhtml?faces-redirect=true"></b:navLink>
+				</b:dropMenu>
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
 				<b:navCommandLink icon="glyphicon glyphicon-log-out" value="Sair"
@@ -93,7 +100,8 @@
 					<b:dataTableColumn value="#{produto.modelo}" />
 					<b:dataTableColumn value="#{produto.marca}" />
 					<b:dataTableColumn label="Quantidade" value="#{produto.qtd}" />
-					<b:dataTableColumn label="Unidade(R$)" value="#{produto.valorUnitario}" />
+					<b:dataTableColumn label="Unidade(R$)"
+						value="#{produto.valorUnitario}" />
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Opções"></h:outputText>

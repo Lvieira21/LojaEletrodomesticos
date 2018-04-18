@@ -1,6 +1,7 @@
 package br.com.fsma.projeto_web.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -61,6 +62,16 @@ public class ClienteBean implements Serializable {
 
 	public List<Cliente> getClientes() {
 		return clienteDao.listaTodos();
+	}
+	
+	public List<Cliente> getClientesSemTroca() {
+		List<Cliente> clientesSemTroca = new ArrayList<Cliente>();
+		for (Cliente cliente : clienteDao.listaTodos()) {
+			if (cliente.getTrocas().isEmpty()) {
+				clientesSemTroca.add(cliente);
+			}
+		}
+		return clientesSemTroca;
 	}
 
 	@Transacional

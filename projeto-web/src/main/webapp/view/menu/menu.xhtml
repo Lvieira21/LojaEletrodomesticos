@@ -16,13 +16,19 @@
 		<b:navBar brand-align="left" brand="Elétros do México" brandHref="#"
 			inverse="true" fixed="top">
 			<b:navbarLinks>
-				<b:navLink value="Home"
-					href="#"></b:navLink>
+				<b:navLink value="Home" href="#"></b:navLink>
 				<b:navLink value="Clientes"
 					href="/projeto-web/view/cliente/cliente.xhtml?faces-redirect=true"></b:navLink>
 				<b:navLink value="Produtos"
 					href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
-				<b:navLink value="Trocas" href="/projeto-web/view/troca/troca.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Trocas"
+					href="/projeto-web/view/troca/troca.xhtml?faces-redirect=true"></b:navLink>
+				<b:dropMenu value="Venda">
+					<b:navLink value="Vender"
+						href="/projeto-web/view/venda/venda.xhtml?faces-redirect=true"></b:navLink>
+					<b:navLink value="Relatórios de Venda"
+						href="/projeto-web/view/venda/listaVenda.xhtml?faces-redirect=true"></b:navLink>
+				</b:dropMenu>
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
 				<b:navCommandLink icon="glyphicon glyphicon-log-out" value="Sair"
@@ -41,8 +47,11 @@
 			<p>Use o menu acima para administrar inventário ou realizar
 				trocas.</p>
 			<p>
-				<a class="btn btn-primary btn-lg" href="/projeto-web/view/venda/venda.xhtml?faces-redirect=true">Vender</a>
-				<a class="btn btn-primary btn-lg" href="/projeto-web/view/venda/listaVenda.xhtml?faces-redirect=true">Relatório de Vendas</a>
+				<a class="btn btn-primary btn-lg"
+					href="/projeto-web/view/venda/venda.xhtml?faces-redirect=true">Vender</a>
+				<a class="btn btn-primary btn-lg"
+					href="/projeto-web/view/venda/listaVenda.xhtml?faces-redirect=true">Relatório
+					de Vendas</a>
 			</p>
 		</b:container>
 	</b:jumbotron>
