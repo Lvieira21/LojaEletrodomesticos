@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Elétros do México - Menu</title>
+	<link type="text/css" rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/estilo.css" />
+</h:head>
+
+<h:body style="padding-top: 50px; padding-bottom: 20px;">
+	<h:form id="frmMenu">
+		<b:navBar brand="Elétros do México"
+			brandHref="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"
+			inverse="true" fixed="top">
+			<b:navbarLinks>
+				<b:navLink value="Home"
+					href="/projeto-web/view/menu/menu.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Clientes"
+					href="/projeto-web/view/cliente/cliente.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Produtos"
+					href="/projeto-web/view/produto/produto.xhtml?faces-redirect=true"></b:navLink>
+				<b:navLink value="Trocas" href="#"></b:navLink>
+			</b:navbarLinks>
+			<b:navbarLinks pull="right">
+				<b:navCommandLink icon="glyphicon glyphicon-log-out" value="Sair"
+					action="#{loginBean.desloga}" process="@this"></b:navCommandLink>
+			</b:navbarLinks>
+		</b:navBar>
+	</h:form>
+	
+	<h1>TROCAS</h1>
+</h:body>
+</html>
