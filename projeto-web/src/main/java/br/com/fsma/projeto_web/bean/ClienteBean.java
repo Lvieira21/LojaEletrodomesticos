@@ -42,7 +42,8 @@ public class ClienteBean implements Serializable {
 			if (clienteDao.numeroValido(cliente)) {
 				cliente.setTelefone(clienteDao.celularOuFixo(cliente));
 				if (clienteDao.verificaCpf(cliente)) {
-					clienteDao.celularOuFixo(cliente);
+					cliente.setCompras(new ArrayList<>());
+					cliente.setTrocas(new ArrayList<>());
 					clienteDao.adiciona(cliente);
 					mensagem.addMessageSuccess("Mensagem do Sistema",
 							"Cliente " + cliente.getNome() + " cadastrado com sucesso!");

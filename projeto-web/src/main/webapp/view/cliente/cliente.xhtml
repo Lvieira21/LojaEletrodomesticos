@@ -73,7 +73,7 @@
 						</b:column>
 						<b:column col-md="4" col-sm="2">
 							<b:inputText mask="(99) 9999-99999" tooltip="Fixo ou celular"
-								placeholder="Telefone" required="true" id="telefone"
+								placeholder="Telefone" required="false" id="telefone"
 								value="#{clienteBean.cliente.telefone}"></b:inputText>
 						</b:column>
 					</b:row>
@@ -111,8 +111,8 @@
 			</h:form>
 		</b:tab>
 
-		<b:tab title="Clientes que não trocaram produtos">
-			<h:form>
+		<b:tab title="Clientes que não trocaram produtos" onclick="ajax:clienteBean.getClientesSemTroca()" update="frmClientesSTroca">
+			<h:form id="frmClientesSTroca">
 				<b:dataTable value="#{clienteBean.clientesSemTroca}" var="cliente"
 					excel="true" pdf="true" columnVisibility="true" paginated="true">
 					<b:dataTableColumn value="#{cliente.nome}" order="asc" />

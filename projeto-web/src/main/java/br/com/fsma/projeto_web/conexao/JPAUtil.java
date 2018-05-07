@@ -8,9 +8,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class JPAUtil {
-	
-	private static EntityManagerFactory emf = Persistence
-		.createEntityManagerFactory("postgres-local");
+
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("postgres-local");
 
 	@Produces
 	@RequestScoped
@@ -18,7 +17,8 @@ public class JPAUtil {
 		return emf.createEntityManager();
 	}
 
-	public void close(@Disposes EntityManager em) {
+	public void close(@Disposes EntityManager em) { // @Dispose - Quando a conexão for descartada pelo CDI, essa
+													// anotação faz com que o método seja implementado
 		em.close();
 	}
 
