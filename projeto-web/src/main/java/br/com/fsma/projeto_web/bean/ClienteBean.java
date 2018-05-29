@@ -13,6 +13,7 @@ import br.com.fsma.projeto_web.modelo.dao.ClienteDAO;
 import br.com.fsma.projeto_web.modelo.negocio.Cliente;
 import br.com.fsma.projeto_web.msg.Mensagem;
 import br.com.fsma.projeto_web.tx.Transacional;
+import br.com.fsma.projeto_web.validador.ValidadorCliente;
 
 @Named
 @ViewScoped
@@ -26,6 +27,9 @@ public class ClienteBean implements Serializable {
 	@Inject
 	private ClienteDAO clienteDao;
 
+	@Inject
+	private ValidadorCliente validador;
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -38,25 +42,13 @@ public class ClienteBean implements Serializable {
 
 	@Transacional
 	public void cadastra() {
-		if (clienteDao.existe(cliente) == false) {
-			if (clienteDao.numeroValido(cliente)) {
-				cliente.setTelefone(clienteDao.celularOuFixo(cliente));
-				if (clienteDao.verificaCpf(cliente)) {
-					cliente.setCompras(new ArrayList<>());
-					cliente.setTrocas(new ArrayList<>());
-					clienteDao.adiciona(cliente);
-					mensagem.addMessageSuccess("Mensagem do Sistema",
-							"Cliente " + cliente.getNome() + " cadastrado com sucesso!");
-					this.cliente = new Cliente();
-				} else {
-					mensagem.addMessageError("Erro!", "CPF inválido");
-				}
-			} else {
-				mensagem.addMessageError("Erro!", "Telefone inválido");
-			}
-
+		if (validador.validaCliente(cliente)) {
+			cliente.setTelefone(validador.celularOuFixo(cliente));
+			cliente.setCompras(new ArrayList<>());
+			cliente.setTrocas(new ArrayList<>());
+			clienteDao.adiciona(cliente);
+			this.cliente = new Cliente();
 		} else {
-			mensagem.addMessageError("Erro!", "CPF já cadastrado");
 			this.cliente = new Cliente();
 		}
 	}
@@ -64,7 +56,7 @@ public class ClienteBean implements Serializable {
 	public List<Cliente> getClientes() {
 		return clienteDao.listaTodos();
 	}
-	
+
 	public List<Cliente> getClientesSemTroca() {
 		List<Cliente> clientesSemTroca = new ArrayList<Cliente>();
 		for (Cliente cliente : clienteDao.listaTodos()) {

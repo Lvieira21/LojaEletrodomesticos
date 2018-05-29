@@ -1,7 +1,7 @@
 package br.com.fsma.projeto_web.teste;
 
-import br.com.fsma.projeto_web.modelo.dao.ClienteDAO;
 import br.com.fsma.projeto_web.modelo.negocio.Cliente;
+import br.com.vieira.verificador.VerificadorCPF;
 
 public class TestaValidCPF {
 
@@ -10,7 +10,8 @@ public class TestaValidCPF {
 		Cliente cliente = new Cliente();
 		Cliente cliente2 = new Cliente();
 		Cliente cliente3 = new Cliente();
-		ClienteDAO clienteDAO = new ClienteDAO();
+		
+		VerificadorCPF verificadorCpf = new VerificadorCPF();
 
 		cliente.setCpf("057.954.837-11"); //Digito inválido
 		cliente.setEndereco("Rua José");
@@ -25,8 +26,8 @@ public class TestaValidCPF {
 		cliente3.setEndereco("Rua José");
 		cliente3.setNome("Lucas Vieira");
 		
-		clienteDAO.verificaCpf(cliente);
-		clienteDAO.verificaCpf(cliente2);
-		clienteDAO.verificaCpf(cliente3);
+		System.out.println(verificadorCpf.verificaCpf(cliente.getCpf()));
+		System.out.println(verificadorCpf.verificaCpf(cliente2.getCpf()));
+		System.out.println(verificadorCpf.verificaCpf(cliente3.getCpf()));
 	}
 }
