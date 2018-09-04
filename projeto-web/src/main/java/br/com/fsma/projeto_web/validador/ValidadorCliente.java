@@ -39,7 +39,6 @@ public class ValidadorCliente implements Serializable {
 			mensagem.addMessageError("Erro!", "CPF já cadastrado");
 		}
 		return false;
-
 	}
 
 	public boolean numeroValido(Cliente cliente) {
